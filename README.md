@@ -177,6 +177,8 @@ Implementare gli unit-test per la funzione che implementa _merge_ secondo le ind
 
 ### Testo
 
+<!-- Roberto: Notate ho aggiunto il rimpiazzamento di un carattere -->
+
 Si consideri il problema di determinare la distanza di edit tra due stringhe (Edit distance): date due stringhe s1 e s2, non necessariamente della stessa lunghezza, determinare il minimo numero di operazioni necessarie per trasformare la stringa s2 in s1. Si assuma che le operazioni disponibili siano: cancellazione, inserimento, e rimpiazzamento di un carattere. Esempi:
 
 - "casa" e "cassa" hanno edit distance pari a 1 (1 cancellazione);
@@ -189,21 +191,17 @@ Si consideri il problema di determinare la distanza di edit tra due stringhe (Ed
 - se $|s1|$ = 0, allora $\mathrm{edit\_distance}(s1,s2) = |s2|$;
 - se $|s2|$ = 0, allora $\mathrm{edit\_distance}(s1,s2) = |s1|$;
 - altrimenti, siano:
-  - $d\_{\mathrm{no-op}} = 
+  - $d_{\mathrm{no-op}} = 
+        \begin{cases}
+        \mathrm{edit\_distance}(\mathrm{rest}(s1),\mathrm{rest}(s2)) & \mathrm{se\ } s1[0]=s2[0] \\
+        \infty & \mathrm{altrimenti}
+        \end{cases}$
 
-\begin{cases}
+  - $d_{\mathrm{canc}} = 1+ \mathrm{edit\_distance}(s1,\mathrm{rest}(s2))$
+  - $d_{\mathrm{ins}} = 1+ \mathrm{edit\_distance}(\mathrm{rest}(s1),s2)$
+  - $d_{\mathrm{replace}} = 1 + \mathrm{edit\_distance}(\mathrm{rest}(s1), \mathrm{rest}(s2))$
 
-\mathrm{edit\_distance}(\mathrm{rest}(s1),\mathrm{rest}(s2)) &amp; \mathrm{se\ } s1[0]=s2[0] \
-
-\infty &amp; \mathrm{altrimenti}
-
-\end{cases}$
-
-- $d\_{\mathrm{canc}} = 1+ \mathrm{edit\_distance}(s1,\mathrm{rest}(s2))$
-- $d\_{\mathrm{ins}} = 1+ \mathrm{edit\_distance}(\mathrm{rest}(s1),s2)$
-- $d\_{\mathrm{replace}} = 1 + \mathrm{edit\_distance}(\mathrm{rest}(s1), \mathrm{rest}(s2))$
-
-Si ha: $\mathrm{edit\_distance}(s1,s2) = \min{d\_{\mathrm{no-op}},d\_{\mathrm{canc}},d\_{\mathrm{ins},d\_{\mathrm{replace}}$
+Si ha: $\mathrm{edit\_distance}(s1,s2) = \min\left\{d_{\mathrm{no-op}},d_{\mathrm{canc}},d_{\mathrm{ins}},d_{\mathrm{replace}}\right\}$
 
 1. Si implementi una seconda versione edit\_distance\_dyn della funzione, adottando una strategia di programmazione dinamica. Tale versione deve essere anch'essa ricorsiva (in particolare, essa può essere facilmente ottenuta a partire dall'implementazione richiesta al punto precedente).
 
@@ -288,7 +286,7 @@ Il file italian\_dist\_graph.csv che potete recuperare seguendo il path
 
 /usr/NFS/Linux/labalgoritmi/datasets/
 
-(in laboratorio von Neumann, selezionare il disco Y) contiene le distanze in metri tra varie località italiane e una frazione delle località a loro più vicine. Il formato è un CSV standard: i campi sono separati da virgole; i record sono separati dal carattere di fine riga (\n).
+(in laboratorio von Neumann, selezionare il disco Y) contiene le distanze in metri tra varie località italiane e una frazione delle località a loro più vicine. Il formato è un CSV standard: i campi sono separati da virgole; i record sono separati dal carattere di fine riga (\\n).
 
 Ogni record contiene i seguenti dati:
 
