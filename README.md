@@ -12,7 +12,11 @@ Esempio:
 - lo studente X deve assicurarsi che il progetto su GitLab, alla data della prova scritta che intende sostenere (in questo esempio, quella del primo appello di giugno), sia aggiornato alla versione che vuole presentare al docente di laboratorio;
 - se lo studente X supera la prova scritta nel primo appello di giugno, deve (pena la perdita del voto ottenuto nella prova scritta) iscriversi a uno degli appelli orali di giugno o luglio, prenotarsi su i-learn in uno degli slot messi a disposizione dal docente del turno di appartenenza e sostenere l'orale nello slot temporale prenotato.
 
-Le regole riportate sopra si applicano al singolo studente.
+Le regole riportate sopra si applicano al singolo studente. Per poter accedere alla discussione di laboratori è in ogni caso necessaria l'iscrizione alla prova orale corrispondente su myunito.
+<!-- Poz: io aggiungerei:
+
+Si noti che, per le sessioni di settembre 2019 e dicembre 2019 esiste una sola possibilità per la discussione del laboratorio. Ad esempio, se lo studente X supera la prova scritta a dicembre 2019, deve necessariamente sostenere la discussione di laboratorio con la prova orale di dicembre 2019 (non sarà possibile discutere a gennaio-febbraio 2020).
+	-->
 
 Studenti diversi, appartenenti allo stesso gruppo, possono sostenere la prova **scritta** nello stesso appello o in appelli diversi. Se studenti diversi, appartenenti allo stesso gruppo, superano la prova scritta nello stesso appello, devono sostenere l' **orale** nello stesso appello orale. Se studenti diversi, appartenenti allo stesso gruppo, superano la prova scritta in appelli diversi, possono sostenere l'orale in appelli diversi.
 
@@ -20,7 +24,7 @@ Ad esempio, si consideri un gruppo di laboratorio costituito dagli studenti X, Y
 
 - alla data della prova scritta del primo appello di giugno, il progetto di laboratorio del gruppo deve essere aggiornato alla versione che si intende presentare;
 - il solo studente X deve sostenere la prova orale nella sessione giugno-luglio,  procedendo come indicato nell'esempio riportato sopra, mentre Y e Z sosterranno la discussione quando avranno superato la prova scritta.
-- Supponiamo che Y e Z superino la prova scritta nel primo appello di dicembre: essi dovranno sostenere la prova orale in uno stesso appello della stessa sessione di dicembre
+- Supponiamo che Y e Z superino la prova scritta nell'appello di gennaio: essi dovranno sostenere la prova orale in uno stesso appello della stessa sessione di gennaio-febbraio
 - Gli studenti Y e Z dovranno, di norma, discutere la stessa versione del progetto di laboratorio che ha discusso lo studente X; i.e., eventuali modifiche al laboratorio successive alla discussione di X dovranno essere debitamente documentate (i.e., il log delle modifiche dovrà comparire su GitLab) e motivate.
 
 **Validità del progetto di laboratorio** : le specifiche per il progetto di laboratorio descritte in questo documento resteranno valide fino all'ultimo appello della sessione gennaio-febbraio relativa al corrente anno accademico **(vale a dire, quella di gennaio-febbraio****2020)** e non oltre!. Gli appelli delle sessioni successive a questa dovranno essere sostenuti sulla base delle specifiche che verranno descritte nella prossima edizione del laboratorio di algoritmi.
@@ -46,7 +50,13 @@ Si rammenta che la valutazione del progetto di laboratorio considererà anche l'
 
 ## Linguaggio in cui sviluppare il laboratorio
 
-È lasciata libertà allo studente di implementare il codice usando Java o C, purché almeno un esercizio sia implementato in Java e almeno uno sia implementato in C <!-- Alla fine, che avevamo deciso? Su questo aspetto, si vedano anche le considerazioni riportate nel testo dell'Esercizio 1… -->
+È lasciata libertà allo studente di implementare il codice usando Java o C, purché almeno un esercizio sia implementato in Java e almeno uno sia implementato in C.
+<!-- Alla fine, che avevamo deciso? Su questo aspetto, si vedano anche le considerazioni riportate nel testo dell'Esercizio 1… 
+
+Poz: non ricordo cosa si era deciso, però credo sia opportuno semplificare il tutto. Se decidiamo che Esercizio 1 è da fare in C, io direi di imporre che un altro esercizio sia fatto in Java (es. quello sui grafi, così non dobbiamo mettere le richieste diverse per la complessità) e di togliere questa frase, sostituendola con:
+
+Gli algoritmi dell'Esercizio 1 vanno implementati in C, mentre quelli degli Esercizi 3 e 4 vanno implementati in Java. Per l'Esercizi 2 è lasciata libertà allo studente di implementare il codice usando Java o C.
+-->
 
 Come detto, gli esercizi chiedono di realizzare strutture generiche. Seguono alcuni suggerimenti sul modo di realizzarle nei due linguaggi accettati.
 
@@ -68,9 +78,7 @@ Nello sviluppo in Java l'uso di ArrayList, ove non escluso esplicitamente dalla 
 
 È parte del mandato degli esercizi la realizzazione di codice di buona qualità.
 
-Per "buona qualità" intendiamo codice ben modularizzato, ben commentato e
-
-ben testato.
+Per "buona qualità" intendiamo codice ben modularizzato, ben commentato e ben testato.
 
 **Alcuni suggerimenti:**
 
@@ -95,11 +103,20 @@ pandoc README.md -o README.pdf
 
 Tutti gli esercizi richiedono almeno di sviluppare una struttura dati e/o un algoritmo. Nello sviluppare questa parte, si deve assumere di stare sviluppando una libreria generica intesa come fondamento di futuri programmi. Non è pertanto lecito fare assunzioni semplificative legate ai particolari usi che di tale libreria generica gli esercizi potrebbero richiedere di implementare; in generale, l'implementazione della libreria generica non deve essere influenzata in alcun modo dagli usi di essa eventualmente richiesti negli esercizi (ad esempio, se un esercizio dovesse richiedere l'implementazione della struttura dati grafo e quello stesso o un altro esercizio dovesse richiedere l'implementazione, a partire da tale struttura dati, di un algoritmo per il calcolo delle componenti connesse di un grafo, l'implementazione della struttura dati non dovrebbe contenere elementi – variabili, procedure, funzioni, metodi, ecc. – eventualmente utili per il calcolo delle componenti connesse, ma non essenziali alla struttura dati; analogamente, se un esercizio dovesse richiedere di operare su grafi con nodi di tipo stringa, l'implementazione della struttura dati grafo dovrebbe restare generica e non potrebbe quindi assumere per i nodi il solo tipo stringa).
 
+<!-- Poz: suggerisco di aggiungere quanto segue:
+
+**Importante** :
+
+In sede di discussione d'esame, sarà facoltà del docente chiedere di eseguire gli algoritmi implementati su dati forniti dal docente stesso. Nel caso questi dati siano memorizzati su file, questi saranno dei csv con la medesima struttura dei dataset forniti e descritti nel testo dell'esercizio. I codici sviluppati dovranno consentire un rapido e semplice adattamento agli input forniti: ad esempio, una buona implementazione consentirà di inserire in input il nome del file su cui eseguire il test, mentre una peggiore richiederà di modificare il codice sorgente e una successiva compilazione a fronte della sola modifica del nome del file contenente il dataset.
+
+-->
+
 In alcuni esercizi si ribadisce la necessità di implementare una versione generale della libreria. Ciò non vuol dire che dove questo non sia specificato esplicitamente sia lecita una implementazione meno generale.
 
 _Durante l'esame sarete chiamati a difendere la generalità dell'implementazione proposta._
 
 <!-- Roberto: suggerisco di aggiungere quanto segue:
+	-- Poz: ok per me
 
 Inoltre tutti gli esercizi chiedono di implementare un programma che sfrutta la libreria realizzata. Questa parte degli esercizi (e solo questa) può essere pensata come una istanziazione particolare di un problema e può quindi fare leva sulle caratteristiche particolari del problema (es., può assumere che i dati siano di un particolare tipo).
 -->
@@ -131,7 +148,7 @@ Si consideri il tipo di dato astratto Lista, definito nei termini delle seguenti
 - Cancellazione dell'elemento in coda alla lista in O(1) <!-- Roberto: vedi sopra -->
 - Cancellazione dell'elemento in posizione i-esima nella lista in O(n)
 - Recupero dell'elemento in posizione i-esima nella lista (senza cancellare l'elemento dalla lista) in O(n)
-- Recupero del numero di elementi della lista in O(1) <!-- Roberto: O(n)? -->
+- Recupero del numero di elementi della lista in O(1) <!-- Roberto: O(n)?  Poz: direi di sì-->
 - Creazione di un iteratore per la lista in O(1)
 
 La lista può contenere oggetti di tipo qualunque e non noto a priori.
@@ -152,12 +169,17 @@ Roberto: Secondo me è meglio semplificare il testo, propongo:
 
 Si realizzino in C due implementazioni alternative per il tipo di dato astratto Lista (e, conseguentemente per l'iteratore su di essa).
 
+Poz: concordo con la semplificazione
+
 -->; In particolare:
 
 - entrambe le librerie devono offrire all'utente una funzione per creare una lista vuota, una per distruggerla<!-- importante la free della memoria, se confermiamo la richiesta di implementazione in C -->, più tutte e sole le operazioni specificate sopra; tali operazioni devono essere realizzate tramite procedure e funzioni aventi la stessa signature in entrambe le librerie
 - una libreria deve implementare le liste con array dinamici (cioè ridimensionabili); l'altra libreria deve implementare le liste tramite record (semplicemente) collegati
 
-<!-- Roberto: togliamo "(semplicemente)"? lasciamo agli studenti scegliere se implementare liste doppiamente linkate o o no? -->
+<!-- Roberto: togliamo "(semplicemente)"? lasciamo agli studenti scegliere se implementare liste doppiamente linkate o o no? 
+
+Poz: io lo toglierei, lasciamo a loro la scelta
+-->
 
 ### Unit Testing
 
@@ -239,7 +261,9 @@ Implementare gli unit-test degli algoritmi secondo le indicazioni suggerite nel 
 
 ### Testo
 
-<!-- Roberto: e se tanto per cambiare chiedessimo una implementazione densa? -->
+<!-- Roberto: e se tanto per cambiare chiedessimo una implementazione densa? 
+Poz: io sono per restare su dati sparsi
+-->
 Si implementi una libreria che realizza la struttura dati Grafo in modo che **sia ottimale per dati sparsi** (IMPORTANTE: le scelte implementative che farete dovranno essere giustificate in relazione alle nozioni presentate durante le lezioni in aula). La struttura deve consentire di rappresentare sia grafi diretti che grafi non diretti (suggerimento: un grafo non diretto può essere rappresentato usando un'implementazione per grafi diretti nel seguente modo: per ogni arco (a,b), etichettato w, presente nel grafo, è presente nel grafo anche l'arco (b,a), etichettato w. Ovviamente, il grafo dovrà mantenere l'informazione che specifica se esso è un grafo diretto o non diretto.).
 
 L'implementazione deve essere generica sia per quanto riguarda il tipo dei nodi, sia per quanto riguarda le etichette degli archi.
@@ -247,6 +271,8 @@ L'implementazione deve essere generica sia per quanto riguarda il tipo dei nodi,
 <!-- DIEGO: forse specificherei complessità diverse a seconda che l'implementazione sia in Java (per la quale chiediamo le complessità già indicate) o in C (per la quale chiediamo complessità meno strette), in modo che chi non segue e decide di farlo in C non impazzisca troppo a cercare librerie o a implementarsi hash table…
 
 ROBERTO: ho appena scoperto che <hsearch.h> fa parte della libreria standard C e fornisce un supporto di base per le hashtables (ha un'API un po' ostica e la possibilità di usare solo una hash table per volta, ma dovrebbe essere sufficiente per i nostri scopi...)
+
+Poz: se imponessimo di farlo in Java avremmo risolto il problema...è vero che a questo punto sarebbe necessario richiedere che anche il 3 sia in Java, ma mi pare comunque fattibile. Ditemi voi
  -->
 
 La struttura dati implementata dovrà offrire (almeno) le seguenti operazioni (accanto ad ogni operazione è specificata la complessità richiesta. Per semplicità, per alcune operazioni, è specificata una complessità più lasca se l'implementazione è realizzata in C):
