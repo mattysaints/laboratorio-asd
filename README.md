@@ -6,6 +6,8 @@ Il progetto di laboratorio può essere svolto individualmente o in gruppo di al 
 
 ll progetto di laboratorio va consegnato mediante Git (vedi sotto) entro e non oltre la data della prova scritta che si intende sostenere. E' vietato sostenere la prova scritta in caso di mancata consegna del progetto di laboratorio. In caso di superamento della prova scritta, la prova orale (discussione del laboratorio) va sostenuta, previa prenotazione mediante apposita procedura che sarà messa a disposizione sulla pagina i-learn del corso, **nella medesima sessione della prova scritta superata** (si ricorda che le sessioni sono giugno-luglio 2019, settembre 2019, dicembre 2019 e gennaio-febbraio 2020).
 
+Si noti che, per le sessioni di settembre 2019 e dicembre 2019 esiste una sola possibilità per la discussione del laboratorio. Ad esempio, se lo studente X supera la prova scritta a dicembre 2019, deve necessariamente sostenere la discussione di laboratorio con la prova orale di dicembre 2019 (non sarà possibile discutere a gennaio-febbraio 2020).
+
 Esempio:
 
 - lo studente X sostiene la prova scritta nel primo appello di giugno
@@ -13,10 +15,6 @@ Esempio:
 - se lo studente X supera la prova scritta nel primo appello di giugno, deve (pena la perdita del voto ottenuto nella prova scritta) iscriversi a uno degli appelli orali di giugno o luglio, prenotarsi su i-learn in uno degli slot messi a disposizione dal docente del turno di appartenenza e sostenere l'orale nello slot temporale prenotato.
 
 Le regole riportate sopra si applicano al singolo studente. Per poter accedere alla discussione di laboratori è in ogni caso necessaria l'iscrizione alla prova orale corrispondente su myunito.
-<!-- Poz: io aggiungerei:
-
-Si noti che, per le sessioni di settembre 2019 e dicembre 2019 esiste una sola possibilità per la discussione del laboratorio. Ad esempio, se lo studente X supera la prova scritta a dicembre 2019, deve necessariamente sostenere la discussione di laboratorio con la prova orale di dicembre 2019 (non sarà possibile discutere a gennaio-febbraio 2020).
-	-->
 
 Studenti diversi, appartenenti allo stesso gruppo, possono sostenere la prova **scritta** nello stesso appello o in appelli diversi. Se studenti diversi, appartenenti allo stesso gruppo, superano la prova scritta nello stesso appello, devono sostenere l' **orale** nello stesso appello orale. Se studenti diversi, appartenenti allo stesso gruppo, superano la prova scritta in appelli diversi, possono sostenere l'orale in appelli diversi.
 
@@ -55,7 +53,7 @@ Si rammenta che la valutazione del progetto di laboratorio considererà anche l'
 
 Poz: non ricordo cosa si era deciso, però credo sia opportuno semplificare il tutto. Se decidiamo che Esercizio 1 è da fare in C, io direi di imporre che un altro esercizio sia fatto in Java (es. quello sui grafi, così non dobbiamo mettere le richieste diverse per la complessità) e di togliere questa frase, sostituendola con:
 
-Gli algoritmi dell'Esercizio 1 vanno implementati in C, mentre quelli degli Esercizi 3 e 4 vanno implementati in Java. Per l'Esercizi 2 è lasciata libertà allo studente di implementare il codice usando Java o C.
+Gli algoritmi dell'Esercizio 1 vanno implementati in C, mentre quelli degli Esercizi 3 e 4 vanno implementati in Java. Per l'Esercizio 2 è lasciata libertà allo studente di implementare il codice usando Java o C.
 -->
 
 Come detto, gli esercizi chiedono di realizzare strutture generiche. Seguono alcuni suggerimenti sul modo di realizzarle nei due linguaggi accettati.
