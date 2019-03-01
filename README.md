@@ -124,12 +124,12 @@ Si rammenta, però, che il focus del laboratorio è l'implementazione di struttu
 Si consideri il tipo di dato astratto Lista, definito nei termini delle seguenti operazioni:
 
 - Verifica se la lista è vuota in O(1)
-- Inserimento in coda alla lista in O(1) <!-- Roberto: senza questa richiesta non c'è un modo efficiente per creare la lista; richiede di mantenere un puntatore alla coda nel caso di liste linkate...  -->
+- Inserimento in coda alla lista in O(1) 
 - Inserimento di un elemento nella posizione i-esima della lista in O(n)
-- Cancellazione dell'elemento in coda alla lista in O(1) <!-- Roberto: vedi sopra -->
+- Cancellazione dell'elemento in coda alla lista in O(1)
 - Cancellazione dell'elemento in posizione i-esima nella lista in O(n)
 - Recupero dell'elemento in posizione i-esima nella lista (senza cancellare l'elemento dalla lista) in O(n)
-- Recupero del numero di elementi della lista in O(1) <!-- Roberto: O(n)?  Poz: direi di sì-->
+- Recupero del numero di elementi della lista in O(1) 
 - Creazione di un iteratore per la lista in O(1)
 
 La lista può contenere oggetti di tipo qualunque e non noto a priori.
@@ -241,22 +241,22 @@ Si implementi una libreria che realizza la struttura dati Grafo in modo che **si
 
 L'implementazione deve essere generica sia per quanto riguarda il tipo dei nodi, sia per quanto riguarda le etichette degli archi.
 
-La struttura dati implementata dovrà offrire (almeno) le seguenti operazioni (accanto ad ogni operazione è specificata la complessità richiesta. Per semplicità, per alcune operazioni, è specificata una complessità più lasca se l'implementazione è realizzata in C):
+La struttura dati implementata dovrà offrire (almeno) le seguenti operazioni (accanto ad ogni operazione è specificata la complessità richiesta:
 
 - Creazione di un grafo vuoto – O(1)
-- Aggiunta di un nodo – in Java: O(1); in C: O(n)
-- Aggiunta di un arco – in Java: O(1); in C: O(n)
+- Aggiunta di un nodo – O(1)
+- Aggiunta di un arco – O(1)
 - Verifica se il grafo è diretto – O(1)
-- Verifica se il grafo contiene un dato nodo – in Java: O(1); in C: O(n)
-- Verifica se il grafo contiene un dato arco – in Java: O(1) quando il grafo è veramente sparso; in C: O(n)
-- Cancellazione di un nodo – in Java: O(1); in C: O(n)
-- Cancellazione di un arco – in Java: O(1) quando il grafo è veramente sparso; in C: O(n)
+- Verifica se il grafo contiene un dato nodo – O(1)
+- Verifica se il grafo contiene un dato arco – O(1) quando il grafo è veramente sparso
+- Cancellazione di un nodo – O(1)
+- Cancellazione di un arco – O(1) quando il grafo è veramente sparso
 - Determinazione del numero di nodi – O(n)
 - Determinazione del numero di archi – O(n)
 - Recupero dei nodi del grafo – O(n)
 - Recupero degli archi del grafo – O(n)
 - Recupero nodi adiacenti di un dato nodo – O(n)
-- Recupero etichetta associata a una coppia di nodi – in Java: O(1) quando il grafo è veramente sparso; in C: O(n)
+- Recupero etichetta associata a una coppia di nodi – O(1) quando il grafo è veramente sparso.
 
 ### Unit Testing
 
