@@ -294,4 +294,4 @@ Ogni record contiene i seguenti dati:
 
 **Controlli**
 
-Un'implementazione corretta dell'algoritmo di Prim, eseguita sui dati contenuti nel file italian\_dist\_graph.csv, dovrebbe determinare una minima foresta ricoprente con 18.640 nodi, 18.637 archi (non orientati) e di peso complessivo di circa 89.939,913 Km.
+Un'implementazione corretta dell'algoritmo di Kruskal, eseguita sui dati contenuti nel file italian\_dist\_graph.csv, dovrebbe determinare una minima foresta ricoprente con 18.640 nodi, 18.637 archi (non orientati) e di peso complessivo di circa 89.939,913 Km.
