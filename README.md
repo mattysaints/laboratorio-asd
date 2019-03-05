@@ -194,7 +194,7 @@ Si consideri il problema di determinare la distanza di edit tra due stringhe (Ed
   - $d_{\mathrm{ins}} = 1+ \mathrm{edit\_distance}(\mathrm{rest}(s1),s2)$
   - $d_{\mathrm{replace}} = 1 + \mathrm{edit\_distance}(\mathrm{rest}(s1), \mathrm{rest}(s2))$
 
-Si ha: $\mathrm{edit\_distance}(s1,s2) = \min\left\{d_{\mathrm{no-op}},d_{\mathrm{canc}},d_{\mathrm{ins}},d_{\mathrm{replace}}\right\}$
+Si ha: $\mathrm{edit\_distance}(s1,s2)=\min\{d_{\mathrm{no-op}},d_{\mathrm{canc}},d_{\mathrm{ins}},d_{\mathrm{replace}}\}$
 
 1. Si implementi una seconda versione edit\_distance\_dyn della funzione, adottando una strategia di programmazione dinamica. Tale versione deve essere anch'essa ricorsiva (in particolare, essa può essere facilmente ottenuta a partire dall'implementazione richiesta al punto precedente).
 
