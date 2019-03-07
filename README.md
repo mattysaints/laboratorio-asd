@@ -146,8 +146,9 @@ In particolare:
 - entrambe le implementazioni devono offrire:
     - una funzione per creare una lista vuota;
     - una per distruggerla (con conseguente deallocazione della memoria associata);
+    - una funzione per distruggere un iteratore (con conseguente deallocazione della memoria associata);
     - tutte e sole le operazioni specificate sopra; tali operazioni devono essere realizzate tramite funzioni aventi la stessa signature in entrambe le librerie;
-- una libreria deve implementare le liste con array dinamici (cioè ridimensionabili); l'altra libreria deve implementare le liste tramite record collegati.
+- una implementazione deve realizzare le liste con array dinamici (cioè ridimensionabili); l'altra implementazione deve realizzare le liste tramite record collegati.
 
 
 
