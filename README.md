@@ -176,7 +176,7 @@ Si consideri il problema di determinare la distanza di edit tra due stringhe (Ed
 
 - "casa" e "cassa" hanno edit distance pari a 1 (1 cancellazione);
 - "casa" e "cara" hanno edit distance pari a 1 (1 rimpiazzamento);
-- “vino” e “vinaio” hanno edit distance=2 (2 inserimenti);
+- “vinaio” e “vino” hanno edit distance=2 (2 inserimenti);
 - "tassa" e "passato" hanno edit distance pari a 3 (2 cancellazioni + 1 rimpiazzamento);
 - "pioppo" e "pioppo" hanno edit distance pari a 0.
 
