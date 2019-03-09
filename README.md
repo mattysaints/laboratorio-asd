@@ -241,7 +241,7 @@ Si implementi una libreria che realizza la struttura dati Grafo in modo che **si
 
 L'implementazione deve essere generica sia per quanto riguarda il tipo dei nodi, sia per quanto riguarda le etichette degli archi.
 
-La struttura dati implementata dovrà offrire (almeno) le seguenti operazioni (accanto ad ogni operazione è specificata la complessità richiesta:
+La struttura dati implementata dovrà offrire (almeno) le seguenti operazioni (accanto ad ogni operazione è specificata la complessità richiesta; n può indicare il numero di nodi o il numero di archi, a seconda del contesto):
 
 - Creazione di un grafo vuoto – O(1)
 - Aggiunta di un nodo – O(1)
@@ -249,7 +249,7 @@ La struttura dati implementata dovrà offrire (almeno) le seguenti operazioni (a
 - Verifica se il grafo è diretto – O(1)
 - Verifica se il grafo contiene un dato nodo – O(1)
 - Verifica se il grafo contiene un dato arco – O(1) quando il grafo è veramente sparso
-- Cancellazione di un nodo – O(1)
+- Cancellazione di un nodo – O(n)
 - Cancellazione di un arco – O(1) quando il grafo è veramente sparso
 - Determinazione del numero di nodi – O(n)
 - Determinazione del numero di archi – O(n)
