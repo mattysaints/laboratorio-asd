@@ -237,11 +237,18 @@ Implementare gli unit-test degli algoritmi secondo le indicazioni suggerite nel 
 
 ### Testo
 
-Si implementi una libreria che realizza la struttura dati Grafo in modo che **sia ottimale per dati sparsi** (IMPORTANTE: le scelte implementative che farete dovranno essere giustificate in relazione alle nozioni presentate durante le lezioni in aula). La struttura deve consentire di rappresentare sia grafi diretti che grafi non diretti (suggerimento: un grafo non diretto può essere rappresentato usando un'implementazione per grafi diretti nel seguente modo: per ogni arco (a,b), etichettato w, presente nel grafo, è presente nel grafo anche l'arco (b,a), etichettato w. Ovviamente, il grafo dovrà mantenere l'informazione che specifica se esso è un grafo diretto o non diretto.).
+Si implementi una libreria che realizza la struttura dati Grafo in modo che **sia ottimale per dati sparsi** 
+(IMPORTANTE: le scelte implementative che farete dovranno essere giustificate in relazione alle nozioni presentate 
+durante le lezioni in aula). La struttura deve consentire di rappresentare sia grafi diretti che grafi non diretti 
+(suggerimento:  un grafo non diretto può essere rappresentato usando un'implementazione per grafi diretti modificata 
+per garantire che, per ogni arco (a,b), etichettato w, presente nel grafo, sia presente nel grafo anche l'arco (b,a), 
+etichettato w. Ovviamente, il grafo dovrà mantenere l'informazione che specifica se esso è un grafo diretto o non diretto.).
 
-L'implementazione deve essere generica sia per quanto riguarda il tipo dei nodi, sia per quanto riguarda le etichette degli archi.
+L'implementazione deve essere generica sia per quanto riguarda il tipo dei nodi, sia per quanto riguarda le etichette 
+degli archi.
 
-La struttura dati implementata dovrà offrire (almeno) le seguenti operazioni (accanto ad ogni operazione è specificata la complessità richiesta; n può indicare il numero di nodi o il numero di archi, a seconda del contesto):
+La struttura dati implementata dovrà offrire (almeno) le seguenti operazioni (accanto ad ogni operazione è specificata la 
+complessità richiesta; n può indicare il numero di nodi o il numero di archi, a seconda del contesto):
 
 - Creazione di un grafo vuoto – O(1)
 - Aggiunta di un nodo – O(1)
@@ -266,9 +273,12 @@ Implementare gli unit-test degli algoritmi secondo le indicazioni suggerite nel 
 
 Si implementi l'algoritmo di Kruskal per la determinazione della minima foresta  ricoprente di un grafo.
 
-L'implementazione dell'algoritmo di Kruskal dovrà utilizzare la struttura dati Union-Find Set implementata nell' esercizio precedente.
+L'implementazione dell'algoritmo di Kruskal dovrà utilizzare la struttura dati Union-Find Set implementata 
+nell' esercizio precedente.
 
-N.B. Nel caso in cui il grafo sia costituito da una sola componente connessa, l'algoritmo restituirà un albero; nel caso in cui, invece, vi siano più componenti connesse, l'algoritmo restituirà una foresta costituita dai minimi alberi ricoprenti di ciascuna componente connessa.
+N.B. Nel caso in cui il grafo sia costituito da una sola componente connessa, 
+l'algoritmo restituirà un albero; nel caso in cui, invece, vi siano più componenti connesse, 
+l'algoritmo restituirà una foresta costituita dai minimi alberi ricoprenti di ciascuna componente connessa.
 
 ### Uso delle librerie che implementano la struttura dati Grafo e l'algoritmo di Kruskal
 
@@ -278,7 +288,10 @@ Il file italian\_dist\_graph.csv che potete recuperare seguendo il path
 
 /usr/NFS/Linux/labalgoritmi/datasets/
 
-(in laboratorio von Neumann, selezionare il disco Y) contiene le distanze in metri tra varie località italiane e una frazione delle località a loro più vicine. Il formato è un CSV standard: i campi sono separati da virgole; i record sono separati dal carattere di fine riga (\\n).
+(in laboratorio von Neumann, selezionare il disco Y) contiene le distanze in metri tra varie località 
+italiane e una frazione delle località a loro più vicine. 
+Il formato è un CSV standard: i campi sono separati da virgole; i record sono separati dal carattere di fine 
+riga (\\n).
 
 Ogni record contiene i seguenti dati:
 
@@ -295,4 +308,6 @@ Ogni record contiene i seguenti dati:
 
 **Controlli**
 
-Un'implementazione corretta dell'algoritmo di Kruskal, eseguita sui dati contenuti nel file italian\_dist\_graph.csv, dovrebbe determinare una minima foresta ricoprente con 18.640 nodi, 18.637 archi (non orientati) e di peso complessivo di circa 89.939,913 Km.
+Un'implementazione corretta dell'algoritmo di Kruskal, eseguita sui dati 
+contenuti nel file italian\_dist\_graph.csv, dovrebbe determinare una minima foresta ricoprente con 
+18.640 nodi, 18.637 archi (non orientati) e di peso complessivo di circa 89.939,913 Km.
