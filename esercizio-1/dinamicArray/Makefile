@@ -1,18 +1,14 @@
 
 # lista dei target da eseguire sempre
-all: tests exec
+all: tests
 
 # compila (grazie alla dipendenza) e esegue i test
-tests: bin/ordered_array_tests
-	bin/ordered_array_tests
-
-#  compila (grazie alla dipendenza) e esegue ordered_array
-exec: bin/ordered_array
-	bin/ordered_array ../ordered_array_sample_file.csv
+tests: bin/list_tests
+	bin/list_tests
 
 # Flags per il compilatore -- su gcc -Weverything non esiste
 #    sostituire con -Wall -Wpedantic
-CFLAGS = -g -Weverything -Wno-padded -Werror
+CFLAGS = -g -Wall -Wpedantic -Wno-padded -Werror
 
 # Lista degli header files
 INCLUDES = src/*.h
@@ -32,11 +28,8 @@ COMMON_DEPS = $(INCLUDES) Makefile
 build/%.o: src/%.c $(COMMON_DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bin/ordered_array: build/ordered_array.o build/ordered_array_main.o $(COMMON_DEPS)
-	$(CC) -o bin/ordered_array build/ordered_array.o build/ordered_array_main.o
-
-bin/ordered_array_tests: build/ordered_array_tests.o build/ordered_array.o build/unity.o $(COMMON_DEPS)
-	$(CC) -o bin/ordered_array_tests  build/ordered_array_tests.o build/ordered_array.o build/unity.o
+bin/list_tests: build/list_tests.o build/list.o build/unity.o $(COMMON_DEPS)
+	$(CC) -o bin/list_tests  build/list_tests.o build/list.o build/unity.o
 
 clean:
 	rm -f build/* bin/*
