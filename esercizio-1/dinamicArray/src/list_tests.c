@@ -37,5 +37,8 @@ static void test_list_empty() {
 
 
 int main() {
-
+  UNITY_BEGIN();
+  RUN_TEST(test_list_new_not_null);
+  RUN_TEST(test_list_empty);
+  UNITY_END();
 }

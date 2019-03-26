@@ -1,7 +1,7 @@
-#import "list.h"
+#include "list.h"
 
-#import <stddef.h>
-#import <stdlib.h>
+#include <stddef.h>
+#include <stdlib.h>
 
 struct _List {
   void** array;
@@ -10,18 +10,18 @@ struct _List {
 };
 
 List *List_create(size_t length) {
-  if(bytes>0) {
+  if(length>0) {
     List *result = (List *)malloc(sizeof(List));
     result->array = (void**)malloc(sizeof(void*)*length);
     result->size = 0;
-    result->length = 1;
+    result->length = length;
     return result;
-  }
+  } else
+    return NULL;
 }
 
 int List_empty(List *l) {
-  if(l)
-    return l->size==0;
+    return l && l->size==0;
 }
 
 void List_insert(List *l, void *elem) {

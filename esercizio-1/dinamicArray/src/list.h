@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stddef.h>
+
 // Definition of the opaque type
 typedef struct _List List;
 
