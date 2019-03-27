@@ -44,7 +44,7 @@ void List_insert_index(List *l, void *elem, int index) {
 		int i;
 		for(i=l->size; i>index; i--)
 			l->array[i] = l->array[i-1];
-		l->array[i] = elem;
+		l->array[index] = elem;
 		l->size++;
 	}
 }

@@ -16,3 +16,6 @@ int List_empty(List *l);
 
 // Inserts an element to the list at the end of the queue
 void List_insert(List *l, void *elem);
+
+// Inserst an element to the list in the position spefified by index. The rest of the list is shift right by 1
+void List_insert_index(List *l, void *elem, int index)
