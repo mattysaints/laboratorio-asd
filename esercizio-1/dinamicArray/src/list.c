@@ -34,3 +34,17 @@ void List_insert(List *l, void *elem) {
     l->size++;
   }
 }
+
+void List_insert_index(List *l, void *elem, int index) {
+	if(l && index<l->size && index>=0) {
+		if(l->size >= l->length) {
+      l->length *= 2;
+      l->array = (void**)realloc(l->array,sizeof(void*)*l->length);
+    }
+		int i;
+		for(i=l->size; i>index; i--)
+			l->array[i] = l->array[i-1];
+		l->array[i] = elem;
+		l->size++;
+	}
+}
