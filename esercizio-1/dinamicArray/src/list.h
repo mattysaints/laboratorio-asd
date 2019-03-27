@@ -19,3 +19,6 @@ void List_insert(List *l, void *elem);
 
 // Inserst an element to the list in the position spefified by index. The rest of the list is shift right by 1
 void List_insert_index(List *l, void *elem, int index)
+
+// Frees the memory allocated for the list l
+void List_destroy(List *l);

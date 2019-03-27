@@ -20,6 +20,13 @@ List *List_create(size_t length) {
     return NULL;
 }
 
+void List_destroy(List *l) {
+  if(l) {
+    free(l->array);
+    free(l);
+  }
+}
+
 int List_empty(List *l) {
     return l && l->size==0;
 }
