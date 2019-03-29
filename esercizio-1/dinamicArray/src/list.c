@@ -55,3 +55,25 @@ void List_insert_index(List *l, void *elem, int index) {
 		l->size++;
 	}
 }
+
+void List_del_index(List *l, int index) {
+    if(l && index<l->size && index>=0) {
+        int i;
+        for(i=index; i<size; i++) 
+            l->array[i] = l->array[i+1];
+        l->size;
+        }
+    }
+}
+
+void List_del(List *l) {
+    if(l && !List_empty(l))
+        l->size--
+}
+
+void *List_get(List *l, int index) {
+    if(l && index<l->size && index>=0)
+        return l->array[index];
+    else
+        return NULL;
+}
