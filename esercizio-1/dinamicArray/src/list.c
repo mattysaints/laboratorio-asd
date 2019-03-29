@@ -28,10 +28,17 @@ void List_destroy(List *l) {
 }
 
 int List_empty(List *l) {
-    return l && l->size==0;
+  return l && l->size==0;
 }
 
-void List_insert(List *l, void *elem) {
+int List_size(List *l) {
+  if(l)
+    return l->size;
+  else
+    return -1;
+}
+
+void List_add(List *l, void *elem) {
   if(l) {
     if(l->size >= l->length) {
       l->length *= 2;
@@ -42,7 +49,7 @@ void List_insert(List *l, void *elem) {
   }
 }
 
-void List_insert_index(List *l, void *elem, int index) {
+void List_add_index(List *l, void *elem, int index) {
 	if(l && index<l->size && index>=0) {
 		if(l->size >= l->length) {
       l->length *= 2;
@@ -56,24 +63,23 @@ void List_insert_index(List *l, void *elem, int index) {
 	}
 }
 
-void List_del_index(List *l, int index) {
-    if(l && index<l->size && index>=0) {
-        int i;
-        for(i=index; i<size; i++) 
-            l->array[i] = l->array[i+1];
-        l->size;
-        }
-    }
+void List_del(List *l) {
+  if(l && !List_empty(l))
+    l->size--;
 }
 
-void List_del(List *l) {
-    if(l && !List_empty(l))
-        l->size--
+void List_del_index(List *l, int index) {
+  if(l && !List_empty(l) && index<l->size && index>=0) {
+    int i;
+    for(i=index; i<l->size; i++) 
+      l->array[i] = l->array[i+1];
+    l->size--;
+  }
 }
 
 void *List_get(List *l, int index) {
-    if(l && index<l->size && index>=0)
-        return l->array[index];
-    else
-        return NULL;
+  if(l && index<l->size && index>=0)
+    return l->array[index];
+  else
+    return NULL;
 }
