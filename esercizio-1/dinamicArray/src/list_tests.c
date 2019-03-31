@@ -6,6 +6,7 @@
 
 // Definition of the opaque type
 typedef struct _List List;
+typedef struct _Iterator Iterator;
 
 
 static int *new_int(int num) {
@@ -91,6 +92,19 @@ static void test_list_get() {
 
   TEST_ASSERT_EQUAL_INT(3,*(int *)List_get(l,0));
 }
+
+static Iterator *build_iterator(List *l) {
+  Iterator *it = Iterator_create(l);
+  return it;
+}
+
+static void test_list_new_not_null() {
+  Iterator *it = build_iterator(l);
+
+  TEST_ASSERT_NOT_NULL(it);
+  List_destroy(it);
+}
+
 
 int main() {
   UNITY_BEGIN();
