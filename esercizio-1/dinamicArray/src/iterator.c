@@ -1,44 +1,38 @@
-#include <list.c>
-#define TRUE 1
-#define FALSE 0
+#include "list.h"
+#include "iterator.h"
 
 struct _Iterator {
-  List *Iterator;
+  List *list;
   int index;
 };
 
 Iterator *Iterator_create(List *l) {
-	Iterator *it = (*Iterator)malloc(sizeof(Iterator));
-	it->Iterator = l;
-	it->index = 0;
+	if(l) {
+    Iterator *it = (Iterator *)malloc(sizeof(Iterator));
+    it->list = l;
+    it->index = 0;
+    return it;
+  } else
+    return NULL;
 }
 
 void Iterator_destroy(Iterator *it) {
-  if(Iterator_isValid(it)) {
-    List_destroy(it->Iterator);
+  if(it)
     free(it);
-  }
 }
 
-int Iterator_isValid(Iterator *it) {
-	if(it && (it->iterator)) {
-		return TRUE;
-	}else {
-		return FALSE;
-	}
+int Iterator_valid(Iterator *it) {
+  return it && it->index < it->list->size;
 }
 
-void *Iterator_getElem(Iterator *it) {
-	if(Iterator_isValid(it)) {
-		return List_get(it->iterator,it->index);
-	}else{
+void *Iterator_get(Iterator *it) {
+	if(it && Iterator_valid(it))
+		return List_get(it->list,it->index);
+	else
 		return NULL;
-	}
 }
 
-void Iterator_getNext(Iterator *it){
-	if(Iterator_isValid(it)) {
-		it->iterator = *(iterator)->array[it->index++];
+void Iterator_next(Iterator *it){
+	if(it && Iterator_valid(it))
 		it->index++;
-	}
 }

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stddef.h>
-
 // Definition of the opaque type
 typedef struct _List List;
 
@@ -9,7 +7,7 @@ typedef struct _List List;
    Returns a new allocated list
    length: given initial length of the list
  */
-List *List_create(size_t length);
+List *List_create(int length);
 
 // Frees the memory allocated for the list l
 void List_destroy(List *l);

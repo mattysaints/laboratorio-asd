@@ -5,11 +5,11 @@
 
 struct _List {
   void** array;
-  size_t size;
-  size_t length;
+  int size;
+  int length;
 };
 
-List *List_create(size_t length) {
+List *List_create(int length) {
   if(length>0) {
     List *result = (List *)malloc(sizeof(List));
     result->array = (void**)malloc(sizeof(void*)*length);
