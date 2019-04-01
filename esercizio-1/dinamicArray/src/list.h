@@ -1,4 +1,6 @@
 #pragma once
+#ifndef _LIST_H_
+#define _LIST_H_
 
 // Definition of the opaque type
 typedef struct _List List;
@@ -32,3 +34,5 @@ void List_del_index(List *l, int index);
 
 // Returns the element located in the position specfied by index
 void *List_get(List *l, int index);
+
+#endif
