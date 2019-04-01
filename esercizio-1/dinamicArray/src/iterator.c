@@ -1,6 +1,15 @@
 #include "list.h"
 #include "iterator.h"
 
+#include <stddef.h>
+#include <stdlib.h>
+
+struct _List {
+  void** array;
+  int size;
+  int length;
+};
+
 struct _Iterator {
   List *list;
   int index;
@@ -22,7 +31,7 @@ void Iterator_destroy(Iterator *it) {
 }
 
 int Iterator_valid(Iterator *it) {
-  return it && it->index < it->list->size;
+  return it && it->index<it->list->size;
 }
 
 void *Iterator_get(Iterator *it) {
