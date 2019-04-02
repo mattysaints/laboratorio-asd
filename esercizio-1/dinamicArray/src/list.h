@@ -2,8 +2,11 @@
 #ifndef _LIST_H_
 #define _LIST_H_
 
-// Definition of the opaque type
+
+// Definition of the opaque types
 typedef struct _List List;
+typedef struct _Iterator Iterator;
+
 
 /*
    Returns a new allocated list
@@ -34,5 +37,26 @@ void List_del_index(List *l, int index);
 
 // Returns the element located in the position specfied by index
 void *List_get(List *l, int index);
+
+
+// Iterator Funcitons
+
+/*
+   Returns a new allocated iterator of list
+   list: container to iterate
+ */
+Iterator *Iterator_create(List *l);
+
+// Frees the memory allocated for the iterator (the list remains untouched) 
+void Iterator_destroy(Iterator *it);
+
+// Checks if the iterator is valid
+int Iterator_valid(Iterator *it);
+
+// Gets the element in currently indexed
+void *Iterator_get(Iterator *it);
+
+// Moves the index of the iterator
+void Iterator_next(Iterator *it);
 
 #endif

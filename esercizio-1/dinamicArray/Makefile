@@ -28,8 +28,8 @@ COMMON_DEPS = $(INCLUDES) Makefile
 build/%.o: src/%.c $(COMMON_DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bin/list_tests: build/list_tests.o build/list.o build/iterator.o build/unity.o $(COMMON_DEPS)
-	$(CC) -o bin/list_tests  build/list_tests.o build/list.o build/iterator.o build/unity.o
+bin/list_tests: build/list_tests.o build/list.o build/unity.o $(COMMON_DEPS)
+	$(CC) -o bin/list_tests  build/list_tests.o build/list.o build/unity.o
 
 clean:
 	rm -f build/* bin/*
