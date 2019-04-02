@@ -7,10 +7,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Definition of the opaque types
-typedef struct _List List;
-typedef struct _Iterator Iterator;
-
 
 static int *new_int(int num) {
   int *num_ptr = (int *)malloc(sizeof(int));
