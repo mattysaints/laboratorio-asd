@@ -6,10 +6,10 @@ usage:
 				"- make linkedlist: esegue i test con l'implementazione con record collegati\n"
 
 # compila (grazie alla dipendenza) e esegue i test
-arraylist: bin/arraylist_tests
+arraylist: bin/list_array_tests
 	bin/list_tests
 
-linkedlist: bin/linkedlist_tests
+linkedlist: bin/list_linked_tests
 	bin/list_tests
 
 # Flags per il compilatore
@@ -25,17 +25,11 @@ COMMON_DEPS = $(INCLUDES) Makefile
 build/%.o: src/%.c $(COMMON_DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-build/arraylist.o: arraylist/list.c
-	$(CC) $(CFLAGS) -c build/arraylist.o
+bin/list_array_tests: build/list_tests.o build/list_array.o build/unity.o $(COMMON_DEPS)
+	$(CC) -o bin/list_tests build/list_tests.o build/list_array.o build/unity.o
 
-build/linkedlist.o: linkedlist/list.c
-	$(CC) $(CFLAGS) -c build/linkedlist.o
-
-bin/arraylist_tests: build/list_tests.o build/arraylist.o build/unity.o $(COMMON_DEPS)
-	$(CC) -o bin/list_tests build/list_tests.o build/arraylist.o build/unity.o
-
-bin/linkedlist_tests: build/list_tests.o build/linkedlist.o build/unity.o $(COMMON_DEPS)
-	$(CC) -o bin/list_tests build/list_tests.o build/linkedlist.o build/unity.o
+bin/list_linked_tests: build/list_tests.o build/list_linked.o build/unity.o $(COMMON_DEPS)
+	$(CC) -o bin/list_tests build/list_tests.o build/list_linked.o build/unity.o
 
 clean:
 	rm -f build/* bin/*
