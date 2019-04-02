@@ -26,9 +26,11 @@ build/%.o: src/%.c $(COMMON_DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 bin/list_array_tests: build/list_tests.o build/list_array.o build/unity.o $(COMMON_DEPS)
+	rm bin/list_tests
 	$(CC) -o bin/list_tests build/list_tests.o build/list_array.o build/unity.o
 
 bin/list_linked_tests: build/list_tests.o build/list_linked.o build/unity.o $(COMMON_DEPS)
+	rm bin/list_tests
 	$(CC) -o bin/list_tests build/list_tests.o build/list_linked.o build/unity.o
 
 clean:
