@@ -13,7 +13,7 @@ static int *new_int(int num) {
   return num_ptr;
 }
 
-static List *build_list() {
+static List *build_list_int() {
   List *l = List_create(4);
 
   List_add(l,new_int(3));
@@ -35,14 +35,14 @@ static List *build_list_string() {
 // Test List of integers
 
 static void test_list_new_not_null() {
-  List *l = build_list();
+  List *l = build_list_int();
 
   TEST_ASSERT_NOT_NULL(l);
   List_destroy(l);
 }
 
 static void test_list_destroy() {
-  List *l = build_list();
+  List *l = build_list_int();
   List_destroy(l);
 
   TEST_ASSERT_EQUAL_INT(1,1);
@@ -56,7 +56,7 @@ static void test_list_empty() {
 }
 
 static void test_list_size() {
-  List *l = build_list();
+  List *l = build_list_int();
 
   TEST_ASSERT_EQUAL_INT(3,List_size(l));
   List_destroy(l);
@@ -72,7 +72,7 @@ static void test_list_add() {
 }
 
 static void test_list_add_index() {
-  List *l = build_list();
+  List *l = build_list_int();
 
   List_add_index(l,new_int(10),1);
   TEST_ASSERT_EQUAL_INT(4,List_size(l));
@@ -81,7 +81,7 @@ static void test_list_add_index() {
 }
 
 static void test_list_del() {
-  List *l = build_list();
+  List *l = build_list_int();
 
   List_del(l);
   TEST_ASSERT_EQUAL_INT(2,List_size(l));
@@ -89,7 +89,7 @@ static void test_list_del() {
 }
 
 static void test_list_del_index() {
-  List *l = build_list();
+  List *l = build_list_int();
 
   List_del_index(l,1);
   TEST_ASSERT_EQUAL_INT(2,List_size(l));
@@ -98,7 +98,7 @@ static void test_list_del_index() {
 }
 
 static void test_list_get() {
-  List *l = build_list();
+  List *l = build_list_int();
 
   TEST_ASSERT_EQUAL_INT(3,*(int *)List_get(l,0));
 }
@@ -170,7 +170,7 @@ static void test_iterator_destroy() {
 }
 
 static void test_iterator_valid() {
-  List *l = build_list();
+  List *l = build_list_int();
   Iterator *it = Iterator_create(l);
   int i;
 
@@ -185,7 +185,7 @@ static void test_iterator_valid() {
 }
 
 static void test_iterator_get() {
-  List *l = build_list();
+  List *l = build_list_int();
   Iterator *it = Iterator_create(l);
 
   TEST_ASSERT_EQUAL_INT(3,*(int *)Iterator_get(it));
@@ -211,25 +211,6 @@ static void test_iterator_next() {
   Iterator_destroy(it);
   List_destroy(l);
 }
-
-static void test_ordered_array_new_not_null() {
-  List *l1 = List_create(2);
-  List *l2 = List_create(2);
-
-  List_add(l1,new_int(5));
-  List_add(l1,new_int(2));
-
-  List_add(l2,new_int(1));
-  List_add(l2,new_int(4));
-
-  List* array = merge(l1, l2);
-  TEST_ASSERT_NOT_NULL(array);
-
-  List_destroy(array);
-}
-
-
-
 
 
 int main() {
