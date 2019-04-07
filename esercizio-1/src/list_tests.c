@@ -212,6 +212,26 @@ static void test_iterator_next() {
   List_destroy(l);
 }
 
+static void test_ordered_array_new_not_null() {
+  List *l1 = List_create(2);
+  List *l2 = List_create(2);
+
+  List_add(l1,new_int(5));
+  List_add(l1,new_int(2));
+
+  List_add(l2,new_int(1));
+  List_add(l2,new_int(4));
+
+  List* array = merge(l1, l2);
+  TEST_ASSERT_NOT_NULL(array);
+
+  List_destroy(array);
+}
+
+
+
+
+
 int main() {
   UNITY_BEGIN();
   RUN_TEST(test_list_new_not_null);
