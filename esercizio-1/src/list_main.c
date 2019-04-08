@@ -151,7 +151,7 @@ static void test_list_equals_int(List *l1, List *l2) {
     Iterator *it1 = Iterator_create(l1);
     Iterator *it2 = Iterator_create(l2);
     while(Iterator_valid(it1) && Iterator_valid(it2)) {
-      TEST_ASSERT_EQUAL_INT(Iterator_get(it1), Iterator_get(it2));
+      TEST_ASSERT_EQUAL_INT(*(int *)Iterator_get(it1), *(int *)Iterator_get(it2));
       Iterator_next(it1);
       Iterator_next(it2);
     }
@@ -180,6 +180,7 @@ static void test_merge_null() {
   TEST_ASSERT_NULL(merge(NULL, List_create(3), List_create(3)));
   TEST_ASSERT_NULL(merge(compare_int, NULL, List_create(3)));
   TEST_ASSERT_NULL(merge(compare_int, List_create(3), NULL));
+  TEST_ASSERT_NULL(merge(compare_int, NULL, NULL));
 }
 
 static void test_merge_one_empty() {
@@ -187,7 +188,7 @@ static void test_merge_one_empty() {
   List *l2 = List_create(3);
   List *merged = merge(compare_int,l1,l2);
   
-  test_list_equals_int(l1,merged);
+  test_list_equals_int(l1,merged); 
 
   List_destroy(l1);
   List_destroy(l2);
