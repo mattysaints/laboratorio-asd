@@ -1,22 +1,22 @@
 # lista dei target da eseguire sempre
 usage:
-	@echo "Uso:\n"\
-	      "- make arraylist: esegue i test con l'implementazione con array ridimensionabili\n"\
-				"- make linkedlist: esegue i test con l'implementazione con record collegati\n"\
-				"- make main1: test della funzione merge con arraylist\n"\
-				"- make main2: test della funzione merge con linkedlist\n"
+	@echo "Esercizio 1. Uso:\n"\
+	      "   make test_arraylist   \ttest List (array ridimensionabili)\n"\
+				"   make test_linkedlist   \ttest List (record collegati)\n"\
+				"   make test_merge_al   \ttest funzione 'merge' (array ridimensionabili)\n"\
+				"   make test_merge_ll   \ttest funzione 'merge' (record collegati)\n"
 
 # compila (grazie alla dipendenza) e esegue i test
-arraylist: bin/list_array_tests
+test_arraylist: bin/list_array_tests
 	bin/list_tests
 
-linkedlist: bin/list_linked_tests
+test_linkedlist: bin/list_linked_tests
 	bin/list_tests
 
-main1: bin/list_array_main
+test_merge_al: bin/list_array_main
 	bin/list_main
 
-main1: bin/list_linked_main
+test_merge_ll: bin/list_linked_main
 	bin/list_main
 
 # Flags per il compilatore
