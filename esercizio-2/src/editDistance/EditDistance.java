@@ -5,9 +5,9 @@ public class EditDistance {
   public static int editDistance(String s1, String s2) throws IllegalArgumentException {
     if(s1!=null && s2!=null) {
       
-      if(s1.length()==0)
+      if(s1.length() == 0)
         return s2.length();
-      else if(s2.length==0)
+      else if(s2.length() == 0)
         return s1.length();
       else {
         String rest_s1 = s1.substring(1);
@@ -22,5 +22,27 @@ public class EditDistance {
       }
     } else
       throw new IllegalArgumentException("The string parameters cannot be null");
+  }
+
+  public static int editDistanceDyn(String s1, String s2) throws IllegalArgumentException {
+    if(s1!=null && s2!=null) {
+      int[s1.length()+1][s2.length()+1] ed;
+      for(int i=0; i<ed.length; i++)
+        for(int j=0; j<ed[i].length; j++)
+          ed[i][j] = -1;
+      return editDistance(s1,s2,ed);
+    } else
+      throw new IllegalArgumentException("The string parameters cannot be null");
+  }
+
+  private static int editDistanceDyn(String s1, String s2, int[][] ed) {
+    if(s1.charAt(0) == s2.charAt(0))
+      return editDistanceDyn(s1.substring(1), s2.substring(1));
+    else {
+      int i = ed.length-s1.length();
+      int j = ed[0].length-s2.length();
+      if(ed[i][j+1] == -1)
+        ed[i][j+1] = editDistanceDyn(s1, s2.substring(1),ed);
+    }
   }
 }
