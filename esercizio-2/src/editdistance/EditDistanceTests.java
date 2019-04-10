@@ -1,4 +1,4 @@
-package editDistance;
+package editdistance;
 
 public class EditDistanceTests {
   
