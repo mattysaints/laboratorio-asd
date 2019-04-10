@@ -1,5 +1,5 @@
-package src.editDistance;
+package editDistance;
 
 public class EditDistanceTests {
   
-}
+} // class

@@ -1,7 +1,12 @@
-package src.editDistance;
+package editDistance;
 
 public class EditDistance {
 
+  /**
+   * Returns the edit distance between the the string parameters
+   * @param s1: one of the two strings
+   * @param s1: the other string
+   */
   public static int editDistance(String s1, String s2) throws IllegalArgumentException {
     if(s1!=null && s2!=null) {
       
@@ -22,20 +27,36 @@ public class EditDistance {
       }
     } else
       throw new IllegalArgumentException("The string parameters cannot be null");
-  }
+  } // editDistance
 
+
+  /**
+   * Returns the edit distance of s1 and s2: implemented with dynamic programming
+   * @param s1: one of the two strings
+   * @param s1: the other string
+   */
   public static int editDistanceDyn(String s1, String s2) throws IllegalArgumentException {
+
     if(s1!=null && s2!=null) {
       int[][] ed = new int[s1.length()+1][s2.length()+1];
+
       for(int i=0; i<ed.length; i++)
         for(int j=0; j<ed[i].length; j++)
           ed[i][j] = -1;
       return editDistanceDyn(s1,s2,ed);
     } else
       throw new IllegalArgumentException("The string parameters cannot be null");
-  }
+  } // editDistanceDyn
 
+
+  /**
+   * Private function called by editDistanceDyn
+   * @param s1
+   * @param s2
+   * @param ed: matrix of edit distances: avoids unnecessary computation
+   */
   private static int editDistanceDyn(String s1, String s2, int[][] ed) {
+
     if(s1.length() == 0)
       return s2.length();
     else if(s2.length() == 0)
@@ -61,5 +82,6 @@ public class EditDistance {
         return ed[i][j];
       }
     }
-  }
-}
+  } // editDistanceDyn
+
+} // class
