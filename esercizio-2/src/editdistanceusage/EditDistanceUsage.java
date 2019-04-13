@@ -3,7 +3,9 @@ package editdistanceusage;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import editdistance.EditDistance;
+import java.lang.Math;
+import java.util.*;
+import editdistance.*;
 
 public class EditDistanceUsage {
 
@@ -25,7 +27,20 @@ public class EditDistanceUsage {
   public static void main(String[] args) {
     try {
       String[] dict = getWords("../resources/dictionary.txt");
-      String[] file = getWords("../resources/correctme.txt");
+      String[] file = getWords("../resources/correctme.txt"); 
+
+      int length_dict = dict.length;
+      int length_file = file.length;
+
+      for(int i=0; i<length_file; i++) {
+      	int min_edit = editDistanceDyn(file[i],dict[i]);
+      	int result = 0;
+      	for(int j = 0; j<length_dict; j++) {
+      		result = editDistanceDyn(file[j],file[j]);
+      		if(Math.min(min_edit,result) < min_edit)
+      			min_edit = result;
+      	}
+      }
     } catch(IOException e) {
       e.printStackTrace();
     }
