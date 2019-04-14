@@ -1,11 +1,11 @@
 package editdistanceusage;
 
+import editdistance.EditDistance;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.Math;
 import java.util.*;
-import editdistance.*;
 
 public class EditDistanceUsage {
 
@@ -33,10 +33,10 @@ public class EditDistanceUsage {
       int length_file = file.length;
 
       for(int i=0; i<length_file; i++) {
-      	int min_edit = editDistanceDyn(file[i],dict[i]);
+      	int min_edit = EditDistance.editDistanceDyn(file[i],dict[i]);
       	int result = 0;
       	for(int j = 0; j<length_dict; j++) {
-      		result = editDistanceDyn(file[j],file[j]);
+      		result = EditDistance.editDistanceDyn(file[j],file[j]);
       		if(Math.min(min_edit,result) < min_edit)
       			min_edit = result;
       	}
