@@ -11,6 +11,10 @@ public class EditDistanceTests_Runner {
     for (Failure failure : result.getFailures()){
       System.out.println(failure.toString());
     }
+    System.out.println(result.getRunCount()+" Tests "+
+                       result.getFailureCount()+" Failed "+
+                       result.getIgnoreCount()+" Ignored ("+
+                       result.getRunTime()+" ms)");
     System.out.println(result.wasSuccessful());
   } // main
 
