@@ -26,7 +26,7 @@ public class EditDistanceTests {
     String s1 = "pablo";
     String s2 = "pablo";
     
-    assertTrue(0 == EditDistance.editDistance(s1,s2));
+    assertEquals(0,EditDistance.editDistance(s1,s2));
   }
 
   @Test
@@ -34,7 +34,7 @@ public class EditDistanceTests {
     String s1 = "pablo";
     String s2 = "pablo";
     
-    assertTrue(0 == EditDistance.editDistanceDyn(s1,s2));
+    assertEquals(0,EditDistance.editDistanceDyn(s1,s2));
   }
 
   @Test
@@ -42,7 +42,7 @@ public class EditDistanceTests {
 	  String s1 = "casa";
 	  String s2 = "casi";
 	  
-	  assertTrue(1 == EditDistance.editDistance(s1,s2));
+	  assertEquals(1,EditDistance.editDistance(s1,s2));
   }
 
   @Test
@@ -50,7 +50,7 @@ public class EditDistanceTests {
     String s1 = "casa";
     String s2 = "casi";
     
-    assertTrue(1 == EditDistance.editDistanceDyn(s1,s2));
+    assertEquals(1,EditDistance.editDistanceDyn(s1,s2));
   }
 
   @Test
@@ -58,7 +58,7 @@ public class EditDistanceTests {
     String s1 = "casa";
     String s2 = "calo";
     
-    assertTrue(2 == EditDistance.editDistance(s1,s2));
+    assertEquals(2,EditDistance.editDistance(s1,s2));
   }
 
   @Test
@@ -66,7 +66,39 @@ public class EditDistanceTests {
     String s1 = "casa";
     String s2 = "calo";
     
-    assertTrue(2 == EditDistance.editDistanceDyn(s1,s2));
+    assertEquals(2,EditDistance.editDistanceDyn(s1,s2));
+  }
+
+  @Test
+  public void test_EditDistance_three(){
+    String s1 = "casa";
+    String s2 = "palo";
+    
+    assertEquals(3,EditDistance.editDistance(s1,s2));
+  }
+
+  @Test
+  public void test_EditDistanceDyn_three(){
+    String s1 = "casa";
+    String s2 = "palo";
+    
+    assertEquals(3,EditDistance.editDistanceDyn(s1,s2));
+  }
+
+  @Test
+  public void test_EditDistance_four(){
+    String s1 = "casa";
+    String s2 = "lime";
+    
+    assertEquals(4,EditDistance.editDistance(s1,s2));
+  }
+
+  @Test
+  public void test_EditDistanceDyn_four(){
+    String s1 = "casa";
+    String s2 = "lime";
+    
+    assertEquals(4,EditDistance.editDistanceDyn(s1,s2));
   }
 
 } // class

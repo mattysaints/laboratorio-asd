@@ -53,7 +53,7 @@ public class EditDistance {
    * Private function called by editDistanceDyn
    * @param s1
    * @param s2
-   * @param ed: matrix of edit distances: avoids unnecessary computation
+   * @param ed: matrix of edit distances, avoids unnecessary computation
    */
   private static int editDistanceDyn(String s1, String s2, int[][] ed) {
 
@@ -68,15 +68,15 @@ public class EditDistance {
       if(s1.charAt(0) == s2.charAt(0))
         return editDistanceDyn(rest_s1, rest_s2);
       else {
-        int i = ed.length-s1.length();
-        int j = ed[0].length-s2.length();
+        int i = ed.length-s1.length()-1;
+        int j = ed[0].length-s2.length()-1;
 
         if(ed[i][j+1] == -1)
           ed[i][j+1] = 1 + editDistanceDyn(s1, rest_s2, ed);
         if(ed[i+1][j] == -1)
           ed[i+1][j] = 1 + editDistanceDyn(rest_s1, s2, ed);
         if(ed[i+1][j+1] == -1)
-          ed[i+1][j+1] = 1 + editDistanceDyn(s1, rest_s2, ed);
+          ed[i+1][j+1] = 1 + editDistanceDyn(rest_s1, rest_s2, ed);
 
         ed[i][j] = Math.min(Math.min(ed[i][j+1],ed[i+1][j]),ed[i+1][j+1]);
         return ed[i][j];

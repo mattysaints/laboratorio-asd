@@ -14,32 +14,37 @@ public class EditDistanceUsage {
       throw new IllegalArgumentException("Filepath cannot be null");
 
     BufferedReader br = new BufferedReader(new FileReader(filepath));
-    char peek;
-    String content = "";
-    
-    while((peek=(char)br.read()) != (char)-1)
-      content += peek;
-    String[] result = content.split("\\W");
+    String line = null, string = "";
+    int i=0;
+    while((line = br.readLine())!=null && i<100000) {
+      string = string + line + "\n";
+      i++;
+    }
     br.close();
-    return result;
+    return string.split("\\W");
   } // getWords
 
   public static void main(String[] args) {
     try {
-      String[] dict = getWords("../resources/dictionary.txt");
-      String[] file = getWords("../resources/correctme.txt"); 
+      String[] file = getWords("editdistanceusage/resources/correctme.txt");
+      String[] dict = getWords("editdistanceusage/resources/dictionary.txt");
 
-      int length_dict = dict.length;
-      int length_file = file.length;
+      for(int i=0; i<file.length; i++) {
+        if(file[i].length()==0)
+          continue;
 
-      for(int i=0; i<length_file; i++) {
-      	int min_edit = EditDistance.editDistanceDyn(file[i],dict[i]);
-      	int result = 0;
-      	for(int j = 0; j<length_dict; j++) {
-      		result = EditDistance.editDistanceDyn(file[j],file[j]);
-      		if(Math.min(min_edit,result) < min_edit)
-      			min_edit = result;
-      	}
+        int min = EditDistance.editDistanceDyn(file[i],dict[0]);
+        ArrayList<String> simWords = new ArrayList<>();
+        simWords.add(dict[0]);
+        for(int j=1; j<dict.length; j++) {
+          int ed = EditDistance.editDistanceDyn(file[i],dict[j]);
+          if(ed < min) {
+            simWords.clear();
+            simWords.add(dict[j]);
+          } else if(ed==min)
+            simWords.add(dict[j]);
+        }
+        System.out.println(file[i]+": "+simWords.toString()+"\n");
       }
     } catch(IOException e) {
       e.printStackTrace();
