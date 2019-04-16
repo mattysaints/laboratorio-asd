@@ -24,9 +24,8 @@ public class EditDistanceUsage {
     return string.split("\\W");
   } // getWords
 
-  public static void main(String[] args) {
-    try {
-      String[] file = getWords("editdistanceusage/resources/correctme.txt");
+  public static void exec() throws IOException {
+    String[] file = getWords("editdistanceusage/resources/correctme.txt");
       String[] dict = getWords("editdistanceusage/resources/dictionary.txt");
 
       for(int i=0; i<file.length; i++) {
@@ -46,6 +45,46 @@ public class EditDistanceUsage {
         }
         System.out.println(file[i]+": "+simWords.toString()+"\n");
       }
+  }
+
+  private static String readWord(BufferedReader br) throws IOException, IllegalArgumentException {
+    if(br!=null) {
+      char peek = ' ';
+      while(!((peek=(char)br.read())>='a' && peek <= 'z' || peek>='A' && peek <='Z'));
+      String word = ""+peek;
+      while((peek=(char)br.read())>='a' && peek <= 'z' || peek>='A' && peek <='Z')
+        word+=peek;
+      return word;
+    } else
+      throw new IllegalArgumentException("Parameter type of BufferedReader is null");
+  }
+
+  public static void exec2() throws IOException, IllegalArgumentException {
+    BufferedReader br1 = new BufferedReader(new FileReader("editdistanceusage/resources/correctme.txt"));
+
+      String s1;
+      while((s1=readWord(br1))!="") {
+        BufferedReader br2 = new BufferedReader(new FileReader("editdistanceusage/resources/dictionary.txt"));
+        String s2 = readWord(br2);
+        int min = EditDistance.editDistanceDyn(s1,s2);
+        ArrayList<String> simWords = new ArrayList<>();
+        simWords.add(s2);
+        while((s2=readWord(br2))!="") {
+          int ed = EditDistance.editDistanceDyn(s1,s2);
+          if(ed < min) {
+            simWords.clear();
+            simWords.add(s2);
+          } else if(ed==min)
+            simWords.add(s2);
+        }
+        System.out.println(s1+": "+simWords.toString()+"\n");
+      }
+  }
+
+  public static void main(String[] args) {
+    try {
+      exec();
+      //exec2();
     } catch(IOException e) {
       e.printStackTrace();
     }
