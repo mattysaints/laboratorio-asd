@@ -175,7 +175,7 @@ public class EditDistanceUsage {
   private static void experiment() throws IOException {
     
     // parola da sperimentare
-    String word = "rirg";
+    String word = "supercaliflidoso";
     
     String[] dict = getWords2("editdistanceusage/resources/dictionary.txt");
     Arrays.sort(dict, new LengthOrder_String());
@@ -215,14 +215,14 @@ public class EditDistanceUsage {
       
       for(int j=1; j<dict.length; j++) {
         int ed = EditDistance.editDistanceDyn(file[i],dict[j]);
+        if(ed==0 || dict[j].length()>file[i].length() && min_ed<ed)
+          break;
         if(ed < min_ed) {
           min_ed = ed;
           simWords.clear();
           simWords.add(dict[j]);
         } else if(ed==min_ed)
           simWords.add(dict[j]);
-        if(ed==0 || dict[j].length()>file[i].length() && min_ed<ed)
-          break;
       }
       System.out.println(file[i]+": "+simWords+"\n");
     }
@@ -231,7 +231,7 @@ public class EditDistanceUsage {
   public static void main(String[] args) {
     long begin = System.nanoTime();
     try {
-      exec5();
+      experiment();
     } catch(IOException e) {
       e.printStackTrace();
     }
