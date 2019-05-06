@@ -15,11 +15,11 @@ public class UnionFindSet<T> {
     else if(set==null || set.length<=0)
       throw new IllegalArgumentException("The pararameter type T[] (array) must be not null and not empty");
     else {
-      Node<T> sup = new Node<>(set[0],null);
       forest = new ArrayList<>(set.length);
-      forest.add(sup);
-      for(int i=1; i<set.length; i++)
-        forest.add(new Node<>(set[i],sup));
+      for(int i=0; i<set.length; i++) {
+        Node<T> temp = new Node<>(set[i]);
+        forest.add(temp,temp);
+      }
     }
   }
 
@@ -31,6 +31,6 @@ public class UnionFindSet<T> {
   }
 
   public UnionFindSet<T> find(T x) {
-
+      
   }
 }
