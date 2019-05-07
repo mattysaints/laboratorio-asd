@@ -2,13 +2,10 @@ package editdistanceusage;
 
 import java.util.Comparator;
 
-/**
- * String comparator
- */
 public class LengthOrder_String implements Comparator<String> {
 
   /**
-   * Override of method compare: ordered by  length (ascending), then alphabetic
+   * Override of method compare: ordered by length (ascending), then alphabetic
    * @param s1: first string to compare
    * @param s2: second string to compare
    */

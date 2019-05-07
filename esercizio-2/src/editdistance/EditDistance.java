@@ -36,10 +36,8 @@ public class EditDistance {
    * @param s1: the other string
    */
   public static int editDistanceDyn(String s1, String s2) throws IllegalArgumentException {
-
     if(s1!=null && s2!=null) {
       int[][] ed = new int[s1.length()+1][s2.length()+1];
-
       for(int i=0; i<ed.length; i++)
         for(int j=0; j<ed[i].length; j++)
           ed[i][j] = -1;
@@ -56,7 +54,6 @@ public class EditDistance {
    * @param ed: matrix of edit distances, avoids unnecessary computation
    */
   private static int editDistanceDyn(String s1, String s2, int[][] ed) {
-
     if(s1.length() == 0)
       return s2.length();
     else if(s2.length() == 0)
@@ -64,24 +61,22 @@ public class EditDistance {
     else {
       String rest_s1 = s1.substring(1);
       String rest_s2 = s2.substring(1);
-
       if(s1.charAt(0) == s2.charAt(0))
         return editDistanceDyn(rest_s1, rest_s2);
       else {
         int i = ed.length-s1.length()-1;
         int j = ed[0].length-s2.length()-1;
-
         if(ed[i][j+1] == -1)
           ed[i][j+1] = 1 + editDistanceDyn(s1, rest_s2, ed);
         if(ed[i+1][j] == -1)
           ed[i+1][j] = 1 + editDistanceDyn(rest_s1, s2, ed);
         if(ed[i+1][j+1] == -1)
           ed[i+1][j+1] = 1 + editDistanceDyn(rest_s1, rest_s2, ed);
-
         ed[i][j] = Math.min(Math.min(ed[i][j+1],ed[i+1][j]),ed[i+1][j+1]);
         return ed[i][j];
       }
     }
   } // editDistanceDyn
 
+  
 } // class
