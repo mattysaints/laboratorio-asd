@@ -8,7 +8,7 @@ public class Node<T> {
 
   private Node(T key) {
     this.key = key;
-    this.rank = 0;
+    this.rank = 0; 
     this.parent = this;
   }
 
