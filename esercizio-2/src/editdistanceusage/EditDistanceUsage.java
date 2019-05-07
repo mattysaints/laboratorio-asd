@@ -10,18 +10,6 @@ import java.util.ArrayList;
 
 public class EditDistanceUsage {
 
-  private static String[] getWords(String filepath) throws IOException {
-    if(filepath == null)
-      throw new IllegalArgumentException("Filepath cannot be null");
-
-    BufferedReader br = new BufferedReader(new FileReader(filepath));
-    String line = null, string = "";
-    while((line = br.readLine())!=null)
-      string = string + line + "\n";
-    br.close();
-    return string.split("\\W");
-  } // getWords
-
   private static ArrayList<String> getWordList(String filepath) throws IOException {
     if(filepath == null)
       throw new IllegalArgumentException("Filepath cannot be null");
@@ -53,12 +41,34 @@ public class EditDistanceUsage {
     return res;
   } // getWords2
 
-  private static void exec() throws IOException {
-    String[] file = getWords("editdistanceusage/resources/correctme.txt");
+  // file e dizionario memorizzati in un array
+  private static void app1() throws IOException {
+    String[] file = getWords2("editdistanceusage/resources/correctme.txt");
+    String[] dict = getWords2("editdistanceusage/resources/dictionary.txt");
 
     for(int i=0; i<file.length; i++) {
-      if(file[i].length()==0)
-        continue;
+      int min = EditDistance.editDistanceDyn(file[i],(String)dict[0]);
+      ArrayList<String> simWords = new ArrayList<>();
+      simWords.add((String)dict[0]);
+      for(int j=1; j<dict.length; j++) {
+        int ed = EditDistance.editDistanceDyn(file[i],(String)dict[j]);
+        if(ed < min) {
+          min = ed;
+          simWords.clear();
+          simWords.add((String)dict[j]);
+        } else if(ed==min)
+          simWords.add((String)dict[j]);
+        if(ed==0)
+          break;
+      }
+      System.out.println(file[i]+": "+simWords+"\n");
+    }
+  }
+
+  private static void app2() throws IOException {
+    String[] file = getWords2("editdistanceusage/resources/correctme.txt");
+
+    for(int i=0; i<file.length; i++) {
       BufferedReader br = new BufferedReader(new FileReader("editdistanceusage/resources/dictionary.txt"));
       String dict = br.readLine();
       int min = EditDistance.editDistanceDyn(file[i],dict);
@@ -72,96 +82,7 @@ public class EditDistanceUsage {
           simWords.add(dict);
         } else if(ed==min)
           simWords.add(dict);
-      }
-      System.out.println(file[i]+": "+simWords+"\n");
-    }
-  }
-
-  private static void exec2() throws IOException {
-    ArrayList<String> file = getWordList("editdistanceusage/resources/correctme.txt");
-    BufferedReader br = new BufferedReader(new FileReader("editdistanceusage/resources/dictionary.txt"));
-    int[] min_ed = new int[file.size()];
-    int[] ed = new int[file.size()];
-    
-    ArrayList<ArrayList<String>> simWords = new ArrayList<>();
-    for(int i=0; i<file.size(); i++)
-      simWords.add(new ArrayList<>());
-
-    //aggiunta del primo
-    String dict = br.readLine();
-    for(int i=0; i<file.size(); i++) {
-      min_ed[i] = EditDistance.editDistanceDyn(file.get(i),dict);
-      ed[i] = EditDistance.editDistanceDyn(file.get(i),dict);
-      simWords.get(i).add(dict);
-    }
-
-    //lettura file e aggiunta liste parole simili
-    while((dict=br.readLine())!=null) {
-      for(int i=0; i<file.size(); i++) {
-        ed[i] = EditDistance.editDistanceDyn(file.get(i),dict);
-        if(ed[i] < min_ed[i]) {
-          simWords.get(i).clear();
-          simWords.get(i).add(dict);
-          min_ed[i] = ed[i];
-        } else if(ed[i]==min_ed[i])
-          simWords.get(i).add(dict);
-      }
-    }
-  
-    //stampa delle liste
-    for(int i=0; i<file.size(); i++)
-      System.out.println(file.get(i)+": "+simWords.get(i)+"\n");
-  }
-
-  // file e dizionario memorizzati in un array
-  private static void exec3() throws IOException {
-    String[] file = getWords("editdistanceusage/resources/correctme.txt");
-    Object[] dict = getWordList("editdistanceusage/resources/dictionary.txt").toArray();
-
-    for(int i=0; i<file.length; i++) {
-      if(file[i].length()==0)
-        continue;
-
-      int min = EditDistance.editDistanceDyn(file[i],(String)dict[0]);
-      ArrayList<String> simWords = new ArrayList<>();
-      simWords.add((String)dict[0]);
-      for(int j=1; j<dict.length; j++) {
-        int ed = EditDistance.editDistanceDyn(file[i],(String)dict[j]);
-        if(ed < min) {
-          min = ed;
-          simWords.clear();
-          simWords.add((String)dict[j]);
-        } else if(ed==min)
-          simWords.add((String)dict[j]);
-      }
-      System.out.println(file[i]+": "+simWords+"\n");
-    }
-  }
-
-  // Dizionario in un array ordinato per lunghezza
-  private static void exec4() throws IOException {
-    String[] file = getWords("editdistanceusage/resources/correctme.txt");
-    String[] dict = getWords2("editdistanceusage/resources/dictionary.txt");
-    Arrays.sort(dict, new LengthOrder_String());
-
-    for(int i=0; i<file.length; i++) {
-      if(file[i].length()==0)
-        continue;
-
-      int min_ed = EditDistance.editDistanceDyn(file[i],dict[0]);
-      int max_ed = min_ed;
-      ArrayList<String> simWords = new ArrayList<>();
-      simWords.add(dict[0]);
-      for(int j=1; j<dict.length; j++) {
-        int ed = EditDistance.editDistanceDyn(file[i],dict[j]);
-        max_ed = Math.max(max_ed,ed);
-        if(ed < min_ed) {
-          min_ed = ed;
-          simWords.clear();
-          simWords.add(dict[j]);
-        } else if(ed==min_ed)
-          simWords.add(dict[j]);
-        else if(ed==0 || dict[j].length()-file[i].length()>ed)
+        if(ed==0)
           break;
       }
       System.out.println(file[i]+": "+simWords+"\n");
@@ -173,7 +94,6 @@ public class EditDistanceUsage {
      per capire quando non e' piu' necessario controllare le parole del dizionario
   */
   private static void experiment() throws IOException {
-    
     // parola da sperimentare
     String word = "supercaliflidoso";
     
@@ -202,8 +122,35 @@ public class EditDistanceUsage {
   }
 
   // Dizionario in un array ordinato per lunghezza
+  private static void app3_1() throws IOException {
+    String[] file = getWords2("editdistanceusage/resources/correctme.txt");
+    String[] dict = getWords2("editdistanceusage/resources/dictionary.txt");
+    Arrays.sort(dict, new LengthOrder_String());
+
+    for(int i=0; i<file.length; i++) {
+      int min_ed = EditDistance.editDistanceDyn(file[i],dict[0]);
+      int max_ed = min_ed;
+      ArrayList<String> simWords = new ArrayList<>();
+      simWords.add(dict[0]);
+      for(int j=1; j<dict.length; j++) {
+        int ed = EditDistance.editDistanceDyn(file[i],dict[j]);
+        max_ed = Math.max(max_ed,ed);
+        if(ed < min_ed) {
+          min_ed = ed;
+          simWords.clear();
+          simWords.add(dict[j]);
+        } else if(ed==min_ed)
+          simWords.add(dict[j]);
+        if(ed==0)
+          break;
+      }
+      System.out.println(file[i]+": "+simWords+"\n");
+    }
+  }
+
+  // Dizionario in un array ordinato per lunghezza
   // sfrutta un teorema
-  private static void exec5() throws IOException {
+  private static void app3_2() throws IOException {
     String[] file = getWords2("editdistanceusage/resources/correctme.txt");
     String[] dict = getWords2("editdistanceusage/resources/dictionary.txt");
     Arrays.sort(dict, new LengthOrder_String());
@@ -231,7 +178,7 @@ public class EditDistanceUsage {
   public static void main(String[] args) {
     long begin = System.nanoTime();
     try {
-      experiment();
+      app3_1();
     } catch(IOException e) {
       e.printStackTrace();
     }
