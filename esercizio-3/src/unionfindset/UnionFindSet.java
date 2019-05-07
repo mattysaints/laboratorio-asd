@@ -28,7 +28,7 @@ public class UnionFindSet<T> {
         yNode.setParent(xNode);
       else if(xNode.rank()==yNode.rank()) {
         xNode.setParent(yNode);
-        xNode.rankUp();
+        yNode.rankUp();
       } else // xNode.rank() < yNode.rank()
         xNode.setParent(yNode);
     } else
@@ -37,7 +37,7 @@ public class UnionFindSet<T> {
 
   private Node<T> findNode(T x) throws UnionFindSetException {
     for(Node<T> node: forest)
-      if(node.equals(x))
+      if(node.getKey() == x)
         return node;
     throw new UnionFindSetException("Element not found in this set");
   }
