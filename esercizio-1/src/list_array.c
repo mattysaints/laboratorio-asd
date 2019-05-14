@@ -72,8 +72,13 @@ void List_add_index(List *l, void *elem, int index) {
 }
 
 void List_del(List *l) {
-  if(l && !List_empty(l))
+  if(l && !List_empty(l)) {
     l->size--;
+    if(l->size <= l->length/4) {
+      l->length /= 2;
+      l->array = (void **)realloc(l->array,sizeof(void *)*l->length);
+    }
+  }
 }
 
 void List_del_index(List *l, int index) {
@@ -82,6 +87,10 @@ void List_del_index(List *l, int index) {
     for(i=index; i<l->size; i++) 
       l->array[i] = l->array[i+1];
     l->size--;
+    if(l->size <= l->length/4) {
+      l->length /= 2;
+      l->array = (void **)realloc(l->array,sizeof(void *)*l->length);
+    }
   }
 }
 

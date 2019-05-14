@@ -80,6 +80,27 @@ static void test_list_add_index() {
   List_destroy(l);
 }
 
+
+static void test_list_double() {
+  List *l = build_list_int();
+
+  TEST_ASSERT_EQUAL_INT(3,List_size(l));
+  List_add(l,new_int(4));
+  List_add(l,new_int(11));
+  TEST_ASSERT_EQUAL_INT(5,List_size(l));
+  List_destroy(l);
+}
+
+static void test_list_half() {
+  List *l = build_list_int();
+
+  TEST_ASSERT_EQUAL_INT(3,List_size(l));
+  List_del(l);
+  List_del(l);
+  TEST_ASSERT_EQUAL_INT(1,List_size(l));
+  List_destroy(l);
+}
+
 static void test_list_del() {
   List *l = build_list_int();
 
@@ -221,6 +242,8 @@ int main() {
   RUN_TEST(test_list_size);
   RUN_TEST(test_list_add);
   RUN_TEST(test_list_add_index);
+  RUN_TEST(test_list_double);
+  RUN_TEST(test_list_half);
   RUN_TEST(test_list_del);
   RUN_TEST(test_list_del_index);
   RUN_TEST(test_list_get);
