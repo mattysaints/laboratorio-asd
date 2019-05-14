@@ -1,8 +1,5 @@
 package unionfindset;
 
-/**
- *  Thrown when trying to find a missing element in a set
- */
 public class UnionFindSetException extends Exception{
   
    /**
@@ -11,4 +8,5 @@ public class UnionFindSetException extends Exception{
     public UnionFindSetException(String message){
         super(message);
     } // UnionFindSetException
+    
 }
