@@ -17,15 +17,12 @@ struct _Iterator {
 
 // List funcions
 
-List *List_create(int length) {
-  if(length>0) {
-    List *result = (List *)malloc(sizeof(List));
-    result->array = (void**)malloc(sizeof(void*)*length);
-    result->size = 0;
-    result->length = length;
-    return result;
-  } else
-    return NULL;
+List *List_create() {
+  List *l = (List *)malloc(sizeof(List));
+  l->array = (void**)malloc(sizeof(void*)*2);
+  l->size = 0;
+  l->length = 2;
+  return l;
 }
 
 void List_destroy(List *l) {

@@ -9,10 +9,9 @@ typedef struct _Iterator Iterator;
 
 
 /*
-   Returns a new allocated list
-   length: given initial length of the list
- */
-List *List_create(int length);
+   Returns a new allocated empty list
+*/
+List *List_create();
 
 // Frees the memory allocated for the list l
 void List_destroy(List *l);
