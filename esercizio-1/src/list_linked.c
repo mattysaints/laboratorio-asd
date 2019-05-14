@@ -16,8 +16,6 @@ struct _List {
   Node *top;
   Node *rear;
   int size;
-  /* legato alla funzione List_create(), valutare se mantenerlo */
-  //int length;
 };
 
 struct _Iterator {
@@ -28,40 +26,7 @@ struct _Iterator {
 
 // List functions
 
-/*
-  DUBBIO SULLA LUNGHEZZA, chiarire con il professore
-
-List *List_create(int length) {
-  if(length>=0) {
-    List *l = (List *)malloc(sizeof(List));
-    l->size = 0;
-    l->length = length;
-    
-    if(length==0) {
-      l->top = NULL;
-      l->rear = NULL;
-    } else {
-      int i;
-      Node p = (Node *)malloc(sizeof(Node));
-      
-      p->prev = NULL;
-      l->top = p;
-      for(i=1; i<length; i++) {
-        Node *tmp = (Node *)malloc(sizeof(Node));
-        tmp->prev = p;
-        p->next = tmp;
-        p = tmp;
-      }
-      p->next = NULL;
-      l->rear = p;
-    }
-    return l;
-  } else
-    return NULL;
-}
-*/
-
-List *List_create(int length) {
+List *List_create() {
   List *l = (List *)malloc(sizeof(List));
   l->size = 0; 
   l->top = NULL;
@@ -92,7 +57,6 @@ int List_size(List *l) {
     return -1;
 }
 
-// NB: implementazione senza considerare la lunghezza iniziale della lista
 void List_add(List *l, void *elem) {
   if(l && elem) {
   	if(l->size==0) {

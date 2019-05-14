@@ -14,7 +14,7 @@ static int *new_int(int num) {
 }
 
 static List *build_list_int() {
-  List *l = List_create(4);
+  List *l = List_create();
 
   List_add(l,new_int(3));
   List_add(l,new_int(8));
@@ -23,7 +23,7 @@ static List *build_list_int() {
 }
 
 static List *build_list_string() {
-  List *l = List_create(4);
+  List *l = List_create();
 
   List_add(l,"String 1");
   List_add(l,"String 2");
@@ -49,7 +49,7 @@ static void test_list_destroy() {
 }
 
 static void test_list_empty() {
-  List *l = List_create(7);
+  List *l = List_create();
 
   TEST_ASSERT_EQUAL_INT(1,List_empty(l));
   List_destroy(l);
@@ -63,7 +63,7 @@ static void test_list_size() {
 }
 
 static void test_list_add() {
-  List *l = List_create(5);
+  List *l = List_create();
 
   List_add(l,new_int(4));
   TEST_ASSERT_EQUAL_INT(1,List_size(l));
@@ -77,6 +77,27 @@ static void test_list_add_index() {
   List_add_index(l,new_int(10),1);
   TEST_ASSERT_EQUAL_INT(4,List_size(l));
   TEST_ASSERT_EQUAL_INT(10,*(int *)List_get(l,1));
+  List_destroy(l);
+}
+
+
+static void test_list_double() {
+  List *l = build_list_int();
+
+  TEST_ASSERT_EQUAL_INT(3,List_size(l));
+  List_add(l,new_int(4));
+  List_add(l,new_int(11));
+  TEST_ASSERT_EQUAL_INT(5,List_size(l));
+  List_destroy(l);
+}
+
+static void test_list_half() {
+  List *l = build_list_int();
+
+  TEST_ASSERT_EQUAL_INT(3,List_size(l));
+  List_del(l);
+  List_del(l);
+  TEST_ASSERT_EQUAL_INT(1,List_size(l));
   List_destroy(l);
 }
 
@@ -107,7 +128,7 @@ static void test_list_get() {
 // Test List of strings
 
 static void test_list_add_string() {
-  List *l = List_create(5);
+  List *l = List_create();
 
   List_add(l,"This is a string");
   TEST_ASSERT_EQUAL_INT(1,List_size(l));
@@ -151,7 +172,7 @@ static void test_list_get_string() {
 // Test Iterator
 
 static void test_iterator_new_not_null() {
-  List *l = List_create(3);
+  List *l = List_create();
   Iterator *it = Iterator_create(l);
 
   TEST_ASSERT_NOT_NULL(it);
@@ -160,7 +181,7 @@ static void test_iterator_new_not_null() {
 }
 
 static void test_iterator_destroy() {
-  List *l = List_create(3);
+  List *l = List_create();
   Iterator *it = Iterator_create(l);
 
   Iterator_destroy(it);
@@ -199,7 +220,7 @@ static void test_iterator_get() {
 }
 
 static void test_iterator_next() {
-  List *l = List_create(2);
+  List *l = List_create();
   List_add(l,new_int(4));
 
   Iterator *it = Iterator_create(l);
@@ -221,6 +242,8 @@ int main() {
   RUN_TEST(test_list_size);
   RUN_TEST(test_list_add);
   RUN_TEST(test_list_add_index);
+  RUN_TEST(test_list_double);
+  RUN_TEST(test_list_half);
   RUN_TEST(test_list_del);
   RUN_TEST(test_list_del_index);
   RUN_TEST(test_list_get);

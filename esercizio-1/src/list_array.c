@@ -17,15 +17,12 @@ struct _Iterator {
 
 // List funcions
 
-List *List_create(int length) {
-  if(length>0) {
-    List *result = (List *)malloc(sizeof(List));
-    result->array = (void**)malloc(sizeof(void*)*length);
-    result->size = 0;
-    result->length = length;
-    return result;
-  } else
-    return NULL;
+List *List_create() {
+  List *l = (List *)malloc(sizeof(List));
+  l->array = (void**)malloc(sizeof(void*)*2);
+  l->size = 0;
+  l->length = 2;
+  return l;
 }
 
 void List_destroy(List *l) {
@@ -72,8 +69,13 @@ void List_add_index(List *l, void *elem, int index) {
 }
 
 void List_del(List *l) {
-  if(l && !List_empty(l))
+  if(l && !List_empty(l)) {
     l->size--;
+    if(l->size <= l->length/4) {
+      l->length /= 2;
+      l->array = (void **)realloc(l->array,sizeof(void *)*l->length);
+    }
+  }
 }
 
 void List_del_index(List *l, int index) {
@@ -82,6 +84,10 @@ void List_del_index(List *l, int index) {
     for(i=index; i<l->size; i++) 
       l->array[i] = l->array[i+1];
     l->size--;
+    if(l->size <= l->length/4) {
+      l->length /= 2;
+      l->array = (void **)realloc(l->array,sizeof(void *)*l->length);
+    }
   }
 }
 
