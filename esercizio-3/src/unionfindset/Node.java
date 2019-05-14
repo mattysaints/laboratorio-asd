@@ -10,7 +10,7 @@ public class Node<T> {
    * Constructor: creates a new node
    * @param key: value to set to the key
    */
-  private Node(T key) {
+  public Node(T key) {
     this.key = key;
     this.rank = 0; 
     this.parent = this;

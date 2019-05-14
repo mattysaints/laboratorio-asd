@@ -21,7 +21,7 @@ public class UnionFindSet<T> {
     else if(set==null || set.length<=0)
       throw new IllegalArgumentException("The pararameter type T[] (array) must be not null and not empty");
     else {
-      forest = new Node<>[set.length];
+      forest = new Node<T>[set.length];
       for(int i=0; i<set.length; i++)
         forest[i] = new Node<>(set[i]);
     }
@@ -31,7 +31,7 @@ public class UnionFindSet<T> {
    * Returns the node with the giver key
    * @param x: key of the node to find
    */
-  private Node<T> findNode(T x) throws UnionFindSetException {
+  private Node<T> node(T x) throws UnionFindSetException {
     for(Node<T> node: forest)
       if(node.key() == x)
         return node;
@@ -39,18 +39,24 @@ public class UnionFindSet<T> {
   } // findNode
 
   /**
+   * Returns the node of the set leader
+   * @param x: node of the element part of the set
+   */
+  private Node<T> findNode(Node<T> node) {
+    if(node.parent()!=node)
+      node.setParent(findNode(node.parent()));
+    return node;
+  } // findNode
+
+  /**
    * Returns the leader of the set
    * @param x: element part of the set
    */
   public T find(T x) throws IllegalArgumentException, UnionFindSetException {
-    if(x==null)
+    if(x == null)
       throw new IllegalArgumentException("The pararameter type T must be not null");
-    else {
-      Node<T> node = findNode(x);
-      if(node.parent()!=node)
-        node.setParent(find(node.parent()));
-      return node.key();
-    }
+    else
+      return findNode(node(x)).key();
   } // find
 
   /**
@@ -62,15 +68,15 @@ public class UnionFindSet<T> {
     if(x==null || y==null)
       throw new IllegalArgumentException("The pararameters type T must be not null");
     else {
-      Node<T> xNode = findNode(x);
-      Node<T> yNode = findNode(y);
-      if(xNode.rank()>yNode.rank())
-        yNode.setParent(xNode);
-      else if(xNode.rank()==yNode.rank()) {
-        xNode.setParent(yNode);
-        yNode.rankUp();
-      } else // xNode.rank() < yNode.rank()
-        xNode.setParent(yNode);
+      Node<T> xRoot = findNode(node(x));
+      Node<T> yRoot = findNode(node(y));
+      if(xRoot.rank()>yRoot.rank())
+        yRoot.setParent(xRoot);
+      else if(xRoot.rank()==yRoot.rank()) {
+        xRoot.setParent(yRoot);
+        yRoot.rankUp();
+      } else
+        xRoot.setParent(yRoot);
     }
   } // union
 
