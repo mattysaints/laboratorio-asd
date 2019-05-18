@@ -2,13 +2,13 @@ package unionfindset;
 
 public class UnionFindSet<T> {
 
-  private Node<T>[] forest;
+  private Object[] array;
 
   /**
    * Constructor: creates an empty set
    */
   public UnionFindSet() {
-    forest=null;
+    array=null;
   } // UnionFindSet
 
   /**
@@ -16,14 +16,14 @@ public class UnionFindSet<T> {
    * @param set: array of generuc type T representig the set
    */
   public void makeSet(T[] set) throws IllegalArgumentException, UnionFindSetException {
-    if(forest!=null)
+    if(array!=null)
       throw new UnionFindSetException("This set already exists");
     else if(set==null || set.length<=0)
       throw new IllegalArgumentException("The pararameter type T[] (array) must be not null and not empty");
     else {
-      forest = new Node<T>[set.length];
+      array = new Object[set.length];
       for(int i=0; i<set.length; i++)
-        forest[i] = new Node<>(set[i]);
+        array[i] = new Node<>(set[i]);
     }
   } // makeSet
 
@@ -32,9 +32,13 @@ public class UnionFindSet<T> {
    * @param x: key of the node to find
    */
   private Node<T> node(T x) throws UnionFindSetException {
-    for(Node<T> node: forest)
+    for(Object obj: array) {
+      
+      @SuppressWarnings("unchecked")
+      Node<T> node = (Node<T>)obj;
       if(node.key() == x)
         return node;
+    }
     throw new UnionFindSetException("Element not found in this set");
   } // findNode
 

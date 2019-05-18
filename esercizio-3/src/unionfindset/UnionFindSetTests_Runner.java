@@ -1,4 +1,4 @@
-package editdistance;
+package unionfindset;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
