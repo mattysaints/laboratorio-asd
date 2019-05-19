@@ -49,7 +49,7 @@ public class UnionFindSet<T> {
   private Node<T> findNode(Node<T> node) {
     if(node.parent()!=node)
       node.setParent(findNode(node.parent()));
-    return node;
+    return node.parent();
   } // findNode
 
   /**
