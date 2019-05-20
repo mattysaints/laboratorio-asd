@@ -7,13 +7,15 @@ import org.junit.Test;
 public class UnionFindSetTests {
 
 	private UnionFindSet<Integer> u1;
+	private UnionFindSet<String> u2;
 	private Integer i1, i2, i3;
 	private String s1,s2,s3;
 
 	@Before
 	public void init_UnionFindSet() {
 		u1 = new UnionFindSet<>();
-		
+		u2 = new UnionFindSet<>();
+
 		i1 = 3;
 		i2 = 4;
 		i3 = 2;
@@ -41,5 +43,16 @@ public class UnionFindSetTests {
 		assertEquals(i2,u1.find(i1));	
 
 	}
+
+	@Test 
+	public void test_makeSet_string() throws Exception {
+		String[] set = {s1,s2,s3};
+		u2.makeSet(set);
+
+		for(String i: set)
+			assertEquals(i,u2.find(i));
+	}
+
+
 
 }
