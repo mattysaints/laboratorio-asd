@@ -44,7 +44,7 @@ public class UnionFindSet<T> {
 
   /**
    * Returns the node of the set leader
-   * @param x: node of the element part of the set
+   * @param node: node of the element part of the set
    */
   private Node<T> findNode(Node<T> node) {
     if(node.parent()!=node)
@@ -66,7 +66,7 @@ public class UnionFindSet<T> {
   /**
    * Makes the union of the two sets 
    * @param x: element part of the first set
-   * @param x: element part of the second set
+   * @param y: element part of the second set
    */
   public void union(T x, T y) throws IllegalArgumentException, UnionFindSetException {
     if(x==null || y==null)
@@ -77,8 +77,8 @@ public class UnionFindSet<T> {
       if(xRoot.rank()>yRoot.rank())
         yRoot.setParent(xRoot);
       else if(xRoot.rank()==yRoot.rank()) {
-        xRoot.setParent(yRoot);
-        yRoot.rankUp();
+        yRoot.setParent(xRoot);
+        xRoot.rankUp();
       } else
         xRoot.setParent(yRoot);
     }
