@@ -6,157 +6,164 @@ import org.junit.Test;
 
 public class UnionFindSetTests {
 
-	private UnionFindSet<Integer> u1;
-	private UnionFindSet<String> u2;
-	private Integer i1, i2, i3, i4;
-	private String s1, s2, s3, s4;
+	private Integer[] integers;
+	private String[] strings;
+	private UnionFindSet<Integer> ufsInt;
+	private UnionFindSet<String> ufsStr;
+
 
 	@Before
 	public void init_UnionFindSet() {
-		u1 = new UnionFindSet<>();
-		u2 = new UnionFindSet<>();
+		ufsInt = new UnionFindSet<>();
+		ufsStr = new UnionFindSet<>();
 
-		i1 = 3;
-		i2 = 4;
-		i3 = 2;
-		i4 = 9;
+		integers = new Integer[]{3,4,2,9,7,1};
+		strings = new String[]{"albero","casa","elefante","gara","mano","computer"};
+	}
 
-		s1 = "a";
-		s2 = "c";
-		s3 = "e";
-		s4 = "g";
+
+	// Tests UnionFindSet of integers
+
+	@Test(expected=IllegalArgumentException.class)
+	public void test_makeSet_null() throws Exception {
+		ufsInt.makeSet(null);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void test_makeSet_zeroLength() throws Exception {
+		ufsInt.makeSet(new Integer[0]);
+	}
+
+	@Test(expected=UnionFindSetException.class)
+	public void test_makeSet_alreadyCreated() throws Exception {
+		ufsInt.makeSet(new Integer[3]);
+		ufsInt.makeSet(new Integer[4]);
 	}
 
 	@Test
 	public void test_makeSet_int() throws Exception {
-		Integer[] set = {i1,i2,i3};
-		u1.makeSet(set);
+		ufsInt.makeSet(integers);
 
-		for(Integer i: set)
-			assertEquals(i,u1.find(i));
+		for(Integer i: integers)
+			assertEquals(i,ufsInt.find(i));
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void test_union_null() throws Exception {
+		ufsInt.makeSet(integers);
+
+		ufsInt.union(null,integers[1]);
+	}
+
+	@Test(expected=UnionFindSetException.class)
+	public void test_union_notFound() throws Exception {
+		ufsInt.makeSet(integers);
+
+		ufsInt.union(10,integers[1]);
 	}
 
 	@Test 
-	public void test_unionSet_int() throws Exception {
-		Integer[] set = {i1,i2,i3};
-		u1.makeSet(set);
+	public void test_union_int() throws Exception {
+		ufsInt.makeSet(integers);
 
-		u1.union(i1,i2);
-		assertEquals(i2,u1.find(i1));	
+		ufsInt.union(integers[0],integers[1]);
+		assertEquals(integers[0],ufsInt.find(integers[1]));	
+	}
 
+	@Test
+	public void test_union_differentRank_int() throws Exception {
+		ufsInt.makeSet(integers);
+
+		ufsInt.union(integers[0],integers[1]);
+		ufsInt.union(integers[0],integers[2]);
+
+		Integer i;
+		for(int k=0; k<3;k++) {
+			i = integers[k];
+			assertEquals(integers[0],ufsInt.find(i));
+		}
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void test_find_null() throws Exception {
+		ufsInt.makeSet(integers);
+
+		ufsInt.find(null);
+	}
+
+	@Test(expected=UnionFindSetException.class)
+	public void test_find_notFound() throws Exception {
+		ufsInt.makeSet(integers);
+
+		ufsInt.find(10);
+	}
+
+	@Test
+	public void test_find_self_int() throws Exception {
+		ufsInt.makeSet(integers);
+
+		assertEquals(integers[0],ufsInt.find(integers[0]));
+	}
+
+	@Test
+	public void test_find_root_int() throws Exception {
+		ufsInt.makeSet(integers);
+
+		ufsInt.union(integers[0],integers[1]);
+		ufsInt.union(integers[1],integers[2]);
+		ufsInt.union(integers[2],integers[3]);
+
+		assertEquals(integers[0],ufsInt.find(integers[3]));
+	}
+
+	// Tests UnionFindSet of strings
+
+	@Test 
+	public void test_makeSet_String() throws Exception {
+		ufsStr.makeSet(strings);
+
+		for(String i: strings)
+			assertEquals(i,ufsStr.find(i));
 	}
 
 	@Test 
-	public void test_makeSet_string() throws Exception {
-		String[] set = {s1,s2,s3};
-		u2.makeSet(set);
+	public void test_union_String() throws Exception {
+		ufsStr.makeSet(strings);
 
-		for(String i: set)
-			assertEquals(i,u2.find(i));
-	}
-
-	@Test 
-	public void test_unionSet_string() throws Exception {
-		String[] set = {s1,s2,s3};
-		u2.makeSet(set);
-
-		u2.union(s1,s2);
-		assertEquals(s2,u2.find(s1));	
-
+		ufsStr.union(strings[0],strings[1]);
+		assertEquals(strings[0],ufsStr.find(strings[1]));	
 	}
 
 	@Test
-	public void test_unionSet_int2() throws Exception {
-		Integer[] set = {i1,i2,i3,i4};
-		u1.makeSet(set);
+	public void test_union_differentRank_String() throws Exception {
+		ufsStr.makeSet(strings);
 
-		u1.union(i1,i2);
-		u1.union(i3,i4);
+		ufsStr.union(strings[0],strings[1]);
+		ufsStr.union(strings[0],strings[2]);
 
-		assertEquals(i2,u1.find(i1));
-		assertEquals(i4,u1.find(i3));
-
-		u1.union(i2,i4);
-		assertEquals(i4,u1.find(i2));	
-
-	}
-
-	@Test
-	public void test_unionSet_string2() throws Exception {
-		String[] set = {s1,s2,s3,s4};
-		u2.makeSet(set);
-
-		u2.union(s1,s2);
-		u2.union(s3,s4);
-
-		assertEquals(s2,u2.find(s1));
-		assertEquals(s4,u2.find(s3));
-
-		u2.union(s2,s4);
-		assertEquals(s4,u2.find(s2));	
-
-	}
-
-	@Test
-	public void test_rankSet_int() throws Exception {
-		Integer[] set = {i1,i2,i3};
-		u1.makeSet(set);
-
-		u1.union(i1,i2);
-		u1.union(i3,i2);
-
-		for(Integer i: set)
-			assertEquals(i2,u1.find(i));
-
-	}
-
-	@Test
-	public void test_rankSet_string() throws Exception {
-		String[] set = {s1,s2,s3};
-		u2.makeSet(set);
-
-		u2.union(s1,s2);
-		u2.union(s3,s2);
-
-		for(String i: set)
-			assertEquals(s2,u2.find(i));
-
-	}
-
-	@Test
-	public void test_rankSet_int2() throws Exception {
-		Integer[] set = {i1,i2,i3,i4};
-		u1.makeSet(set);
-
-		u1.union(i2,i1);
-
-		for(int i = 0; i!=1; i++){
-			assertEquals(set[i],u1.find(i2));
+		String i;
+		for(int k=0; k<3; k++) {
+			i = strings[k];
+			assertEquals(strings[0],ufsStr.find(i));
 		}
-
-		for(int j = 2; j!=set.length; j++){
-			assertEquals(set[j],u1.find(set[j]));
-		}
-
 	}
 
 	@Test
-	public void test_rankSet_string2() throws Exception {
-		String[] set = {s1,s2,s3,s4};
-		u2.makeSet(set);
+	public void test_find_self_String() throws Exception {
+		ufsStr.makeSet(strings);
 
-		u2.union(s2,s1);
-
-		for(int i = 0; i!=1; i++){
-			assertEquals(set[i],u2.find(s2));
-		}
-
-		for(int j = 2; j!=set.length; j++){
-			assertEquals(set[j],u2.find(set[j]));
-		}
-
+		assertEquals(strings[0],ufsStr.find(strings[0]));
 	}
 
+	@Test
+	public void test_find_root_String() throws Exception {
+		ufsStr.makeSet(strings);
 
+		ufsStr.union(strings[0],strings[1]);
+		ufsStr.union(strings[1],strings[2]);
+		ufsStr.union(strings[2],strings[3]);
+
+		assertEquals(strings[0],ufsStr.find(strings[3]));
+	}
 
 }
