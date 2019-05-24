@@ -1,17 +1,23 @@
 package graph;
 
-public class Link<T> {
-	private Node<T> start;
+import java.lang.Number;
+
+public class Link<T,E extends Number> {
+
 	private Node<T> end;
+  private E weight;
 
-	public Link(Node<T> start, Node<T> end) {
-		this.start = start;
+	public Link(Node<T> end, E weight) {
 		this.end = end;
+    this.weight = weight;
 	}
 
-	public boolean equals(Link<T> l) {
-		return this.start.equals(l.start) && this.end.equals(l.end);
-	}
+  public Node<T> end() {
+    return this.end;
+  }
 
+  public E weight() {
+    return this.weight;
+  }
 
 }

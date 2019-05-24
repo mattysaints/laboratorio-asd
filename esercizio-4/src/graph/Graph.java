@@ -1,24 +1,41 @@
 package graph;
 
-public class Graph<T,E> {
+import java.lang.Number;
+import java.util.HashMap;
+
+public class Graph<T,E extends Number> {
 
 	private HashMap<T,Node<T>> nodes;
-	private HashMap<Link<T>,E> links;
-	private boolean oriented;
+	private boolean isOriented;
 
-	public Graph(boolean oriented) {
-		nodes  = new HashMap<T,Node<T>>();
-		links = new HashMap<Link<T>,E>;
+
+	public Graph(boolean iOriented) {
+		this.nodes  = new HashMap<>();
+		this.isOriented = isOriented
 	}
 
-	public void addNode(T x) {
-		nodes.put(x,new Node<>(x));
+	public boolean add(T x) throws GraphException{
+		if(x==null)
+      throw new GraphException("add: the parameter cannot be null");
+    else if(nodes.contains(x))
+      return false;
+    else {
+      nodes.put(x,new Node<>(x));
+      return true;
+    }
 	}
 
-	public void addLink(T x, T y, E w) {
-		Link<T> temp = new Link(nodes.get(x),nodes.get(y));
-		links.put(temp,w);
-
+	public boolean link(T x, T y, E weight) throws GraphException {
+		if(x==null || y==null || weight==null)
+			throw new GraphException("link: the parameters cannot be null");
+		if(!nodes.contains(x) || !nodes.contains(y))
+      return false;
+		else {
+      // aggiungere se il grafo non è orientato
+			Node<T,E> tmp = nodes.get(y);
+			nodes.get(x).addAdj(tmp,new Link(tmp,weight));
+      return true;
+		}
 	}
 
 	public boolean isOriented() {
@@ -26,19 +43,40 @@ public class Graph<T,E> {
 	}
 
 	public boolean containsNode(T x) {
-		return nodes.contains(x);
+		if(x==null)
+			return false;
+		else
+			return nodes.contains(x);
 	}
 
 	public boolean containsLink(T x, T y) {
-		return link.contains(new Link<T>(x,y));
+		if(x==null || y==null)
+			return false;
+		else
+			return nodes.contains(x) && nodes.get(x).hasAdj(y);
 	}
 
-	public void deleteNode(T x) {
-		nodes.remove(x);
-	}
+	public boolean del(T x) throws GraphException {
+    if(x==null)
+      throw new GraphException("del: the parameter cannot be null");
+    else if(!nodes.contains(x))
+      return false;
+    else {
+  		//eliminare tutti gli archi
+  		return nodes.remove(x);
+	  }
+  }
 
-	public void deleteLink(T x, T y) {
-		link.remove(new Link<T>(x,y));
+	public boolean unlink(T x, T y) {
+		if(x==null || y==null)
+			throw new GraphException("unlink: the parameters cannot be null");
+		else if(!this.containsLink(x,y))
+      return false;
+    else {
+      // distinguere arco diretto
+			// elimina arco
+      return true;
+		}
 	}
 
 	public int size() {
@@ -48,13 +86,5 @@ public class Graph<T,E> {
 	public int links() {
 		return links.size();
 	}
-
-	public 
-
-
-
-
-
-
 
 }
