@@ -54,7 +54,7 @@ public class UnionFindSet<T> {
   } // find
 
   /**
-   * Makes the union of the two sets 
+   * Returns true if the union of the two sets has been successfull 
    * @param x: element part of the first set
    * @param y: element part of the second set
    */
