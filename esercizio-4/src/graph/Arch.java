@@ -2,22 +2,34 @@ package graph;
 
 import java.lang.Number;
 
-public class Link<T,E extends Number> {
+public class Arch<T,E extends Number> implements Comparable<Arch<T,E>>{
 
-	private Node<T> end;
+  private T start;
+	private T end;
   private E weight;
 
-	public Link(Node<T> end, E weight) {
-		this.end = end;
+
+	public Link(T start, T end, E weight) {
+		this.start = start;
+    this.end = end;
     this.weight = weight;
 	}
 
-  public Node<T> end() {
+  public T start() {
+    return this.start;
+  }
+
+  public T end() {
     return this.end;
   }
 
   public E weight() {
     return this.weight;
+  }
+
+  @Override
+  public int compareTo(Arch<T,E> arch) {
+    return this.weight.compareTo(arch.weight)
   }
 
 }
