@@ -24,20 +24,20 @@ public class UnionFindSetTests {
 
 	// Tests UnionFindSet of integers
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=UnionFindSetException.class)
 	public void test_makeSet_null() throws Exception {
 		ufsInt.makeSet(null);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=UnionFindSetException.class)
 	public void test_makeSet_zeroLength() throws Exception {
 		ufsInt.makeSet(new Integer[0]);
 	}
 
-	@Test(expected=UnionFindSetException.class)
+	@Test
 	public void test_makeSet_alreadyCreated() throws Exception {
 		ufsInt.makeSet(new Integer[3]);
-		ufsInt.makeSet(new Integer[4]);
+		assertFalse(ufsInt.makeSet(new Integer[4]));
 	}
 
 	@Test
@@ -48,18 +48,18 @@ public class UnionFindSetTests {
 			assertEquals(i,ufsInt.find(i));
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=UnionFindSetException.class)
 	public void test_union_null() throws Exception {
 		ufsInt.makeSet(integers);
 
 		ufsInt.union(null,integers[1]);
 	}
 
-	@Test(expected=UnionFindSetException.class)
+	@Test
 	public void test_union_notFound() throws Exception {
 		ufsInt.makeSet(integers);
 
-		ufsInt.union(10,integers[1]);
+		assertFalse(ufsInt.union(10,integers[1]));
 	}
 
 	@Test 
@@ -84,7 +84,7 @@ public class UnionFindSetTests {
 		}
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=UnionFindSetException.class)
 	public void test_find_null() throws Exception {
 		ufsInt.makeSet(integers);
 
