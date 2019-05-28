@@ -31,7 +31,8 @@ public class Graph<T,E extends Number & Comparable<E>> {
 	public boolean link(T x, T y, E weight) throws GraphException {
 		if(x==null || y==null || weight==null)
 			throw new GraphException("link: the parameters cannot be null");
-		if(!nodes.containsKey(x) || !nodes.containsKey(y))
+		if(!nodes.containsKey(x) || !nodes.containsKey(y) ||
+       nodes.get(x).hasAdj(y) || nodes.get(y).hasAdj(x))
       return false;
 		else {
       if(!isOriented)

@@ -11,8 +11,8 @@ import java.io.FileReader;
 
 public class GraphUsage {
 
-  public static Graph<String,Double> mstKruskal(Graph<String,Double> graph, String source) throws Exception {
-    if(graph==null || source==null)
+  public static Graph<String,Double> mstKruskal(Graph<String,Double> graph) throws Exception {
+    if(graph==null)
       throw new IllegalArgumentException("mstKruskal: parameters cannot be null");
     else if(graph.isOriented())
       throw new RuntimeException("mstKruskal: the graph must be not oriented");
@@ -44,8 +44,6 @@ public class GraphUsage {
     while((line=br.readLine())!=null) {
       String[] tmp = line.split(",");
 
-      // controllo dei nodi con nomi simili
-
       gr.add(tmp[0]);
       gr.add(tmp[1]);
       gr.link(tmp[0],tmp[1],Double.parseDouble(tmp[2]));
@@ -61,5 +59,18 @@ public class GraphUsage {
       res += ar.weight();
     return res;
   } 
+
+  public static void main(String[] args) {
+    try {
+      Graph<String,Double> gr = loadGraph("graphusage/resources/italian_dist_graph.csv");
+    Graph<String,Double> mst = mstKruskal(gr);
+    System.out.println("mst:\n"+
+                       mst.size()+ " nodes\n"+
+                       mst.numLinks()+" arches\n"+
+                       (totDistance(mst)/1000.0)+" total weight (km)");
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+  }
 
 }

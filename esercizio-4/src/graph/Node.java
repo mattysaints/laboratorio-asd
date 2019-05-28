@@ -23,6 +23,7 @@ public class Node<T,E extends Number & Comparable<E>> {
 
 	public Node(T key) {
 		this.key = key;
+    adjNodes = new HashMap<>();
 	}
 
   public T key() {
