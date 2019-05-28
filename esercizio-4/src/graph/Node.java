@@ -38,8 +38,7 @@ public class Node<T,E extends Number & Comparable<E>> {
   }
 
   public void delAdj(Node<T,E> x) {
-    // implementare
-    // serve per eliminare un adiacente
+    adjNodes.remove(x.key);
   }
 
   public List<T> adjNodes() {
@@ -63,6 +62,5 @@ public class Node<T,E extends Number & Comparable<E>> {
       res.add(new Arch<>(this.key, link.end.key, link.weight));
     return res;
   }
+
 }
-
-

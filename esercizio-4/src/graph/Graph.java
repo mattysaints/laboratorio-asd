@@ -2,6 +2,7 @@ package graph;
 
 import java.lang.Number;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -16,7 +17,6 @@ public class Graph<T,E extends Number & Comparable<E>> {
 		this.isOriented = isOriented;
 	}
 
-  // aggiungere se il grafo non e' orientato
 	public boolean add(T x) throws GraphException{
 		if(x==null)
       throw new GraphException("add: the parameter cannot be null");
@@ -28,13 +28,14 @@ public class Graph<T,E extends Number & Comparable<E>> {
     }
 	}
 
-  // aggiungere se il grafo non è orientato
 	public boolean link(T x, T y, E weight) throws GraphException {
 		if(x==null || y==null || weight==null)
 			throw new GraphException("link: the parameters cannot be null");
 		if(!nodes.containsKey(x) || !nodes.containsKey(y))
       return false;
 		else {
+      if(!isOriented)
+        nodes.get(y).addAdj(nodes.get(x),weight);
 			nodes.get(x).addAdj(nodes.get(y),weight);
       return true;
 		}
@@ -58,28 +59,29 @@ public class Graph<T,E extends Number & Comparable<E>> {
 			return nodes.containsKey(x) && nodes.get(x).hasAdj(y);
 	}
 
-  // aggiungere se il grafo non e' orientato
 	public boolean del(T x) throws GraphException {
     if(x==null)
       throw new GraphException("del: the parameter cannot be null");
     else if(!nodes.containsKey(x))
       return false;
     else {
-  		//eliminare tutti gli archi
+      for(Node<T,E> n: nodes.values())
+        if(nodes.get(x)!=n && n.hasAdj(x))
+          n.delAdj(nodes.get(x));
   		nodes.remove(x);
       return true;
 	  }
   }
 
-  // aggiungere se il grafo non e' orientato
 	public boolean unlink(T x, T y) throws GraphException {
 		if(x==null || y==null)
 			throw new GraphException("unlink: the parameters cannot be null");
 		else if(!this.containsLink(x,y))
       return false;
     else {
-      // distinguere arco diretto
-			// elimina arco
+      if(!isOriented)
+        nodes.get(y).delAdj(nodes.get(x));
+      nodes.get(x).delAdj(nodes.get(y));
       return true;
 		}
 	}
@@ -88,7 +90,7 @@ public class Graph<T,E extends Number & Comparable<E>> {
 		return nodes.size();
 	}
 
-	public int links() {
+	public int numLinks() {
 		int res = 0;
     for(Node<T,E> n: nodes.values())
       res += n.links();
@@ -99,12 +101,11 @@ public class Graph<T,E extends Number & Comparable<E>> {
     return new ArrayList<>(nodes.keySet());
   }
 
-  // aggiungere se il grafo non e' orientato
   public List<Arch<T,E>> archList() {
-    ArrayList<Arch<T,E>> res = new ArrayList<>(this.links());
+    HashSet<Arch<T,E>> set = new HashSet<>(this.numLinks());
     for(Node<T,E> n: nodes.values())
-      res.addAll(n.archList());
-    return res;
+      set.addAll(n.archList());
+    return new ArrayList<>(set);
   }
 
   public List<T> adjList(T x) throws GraphException {

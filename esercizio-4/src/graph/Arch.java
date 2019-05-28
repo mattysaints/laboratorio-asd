@@ -32,4 +32,8 @@ public class Arch<T,E extends Number & Comparable<E>> implements Comparable<Arch
     return this.weight.compareTo(arch.weight); 
   }
 
+  public boolean equals(Arch<T,E> arch) {
+    return this.weight.equals(arch.weight) &&
+          (this.start==arch.start && this.end==arch.end || this.start==arch.end && this.end==arch.start);
+  }
 }
