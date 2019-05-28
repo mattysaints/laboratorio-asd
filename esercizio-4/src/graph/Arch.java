@@ -29,6 +29,7 @@ public class Arch<T,E extends Number> {
 
   public boolean equals(Arch<T,E> arch) {
     return this.weight.equals(arch.weight) &&
-          (this.start==arch.start && this.end==arch.end || this.start==arch.end && this.end==arch.start);
+          (this.start.equals(arch.start) && this.end.equals(arch.end) ||
+           this.start.equals(arch.end) && this.end.equals(arch.start));
   }
 }
