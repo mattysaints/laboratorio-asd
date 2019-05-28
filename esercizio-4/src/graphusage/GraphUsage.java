@@ -39,11 +39,10 @@ public class GraphUsage {
   public static Graph<String,Double> loadGraph(String filepath) throws Exception {
     Graph<String,Double> gr = new Graph<>(false);
     BufferedReader br = new BufferedReader(new FileReader(filepath));
-
     String line;
+    
     while((line=br.readLine())!=null) {
       String[] tmp = line.split(",");
-
       gr.add(tmp[0]);
       gr.add(tmp[1]);
       gr.link(tmp[0],tmp[1],Double.parseDouble(tmp[2]));
@@ -57,14 +56,14 @@ public class GraphUsage {
     int res = 0;
     for(Arch<String,Double> ar: archList)
       res += ar.weight();
-    return res;
+    return res/2.0;
   } 
 
   public static void main(String[] args) {
     try {
       Graph<String,Double> gr = loadGraph("graphusage/resources/italian_dist_graph.csv");
-    Graph<String,Double> mst = mstKruskal(gr);
-    System.out.println("mst:\n"+
+      Graph<String,Double> mst = mstKruskal(gr);
+      System.out.println("MST Kruskal data\n"+
                        mst.size()+ " nodes\n"+
                        mst.numLinks()+" arches\n"+
                        (totDistance(mst)/1000.0)+" total weight (km)");

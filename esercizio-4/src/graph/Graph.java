@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Graph<T,E extends Number & Comparable<E>> {
+public class Graph<T,E extends Number> {
 
 	private HashMap<T,Node<T,E>> nodes;
 	private boolean isOriented;
@@ -31,13 +31,14 @@ public class Graph<T,E extends Number & Comparable<E>> {
 	public boolean link(T x, T y, E weight) throws GraphException {
 		if(x==null || y==null || weight==null)
 			throw new GraphException("link: the parameters cannot be null");
-		if(!nodes.containsKey(x) || !nodes.containsKey(y) ||
-       nodes.get(x).hasAdj(y) || nodes.get(y).hasAdj(x))
+		else if(!(nodes.containsKey(x) && nodes.containsKey(y)))
+      return false;
+    else if(!isOriented && nodes.get(y).hasAdj(x) || nodes.get(x).hasAdj(y))
       return false;
 		else {
       if(!isOriented)
-        nodes.get(y).addAdj(nodes.get(x),weight);
-			nodes.get(x).addAdj(nodes.get(y),weight);
+        nodes.get(y).addAdj(x,weight);
+			nodes.get(x).addAdj(y,weight);
       return true;
 		}
 	}
@@ -68,7 +69,7 @@ public class Graph<T,E extends Number & Comparable<E>> {
     else {
       for(Node<T,E> n: nodes.values())
         if(nodes.get(x)!=n && n.hasAdj(x))
-          n.delAdj(nodes.get(x));
+          n.delAdj(x);
   		nodes.remove(x);
       return true;
 	  }
@@ -81,8 +82,8 @@ public class Graph<T,E extends Number & Comparable<E>> {
       return false;
     else {
       if(!isOriented)
-        nodes.get(y).delAdj(nodes.get(x));
-      nodes.get(x).delAdj(nodes.get(y));
+        nodes.get(y).delAdj(x);
+      nodes.get(x).delAdj(y);
       return true;
 		}
 	}
@@ -94,7 +95,9 @@ public class Graph<T,E extends Number & Comparable<E>> {
 	public int numLinks() {
 		int res = 0;
     for(Node<T,E> n: nodes.values())
-      res += n.links();
+      res += n.numLinks();
+    if(!isOriented)
+      res /= 2;
     return res;
 	}
 
@@ -113,7 +116,7 @@ public class Graph<T,E extends Number & Comparable<E>> {
     if(x == null)
       throw new GraphException("adjList: parameter cannot be null");
     else
-      return nodes.get(x).adjNodes();
+      return nodes.get(x).adjList();
   }
 
   public E weight(T x, T y) throws GraphException {
