@@ -2,7 +2,7 @@ package graph;
 
 import java.lang.Number;
 
-public class Arch<T,E extends Number & Comparable<E>> implements Comparable<Arch<T,E>>{
+public class Arch<T,E extends Number> {
 
   private T start;
 	private T end;
@@ -25,11 +25,6 @@ public class Arch<T,E extends Number & Comparable<E>> implements Comparable<Arch
 
   public E weight() {
     return this.weight;
-  }
-
-  @Override
-  public int compareTo(Arch<T,E> arch) {
-    return this.weight.compareTo(arch.weight); 
   }
 
   public boolean equals(Arch<T,E> arch) {
