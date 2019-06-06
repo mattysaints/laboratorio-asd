@@ -28,4 +28,24 @@ public class Arch<T,E extends Number> {
     return this.weight;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if(this == obj)
+      return true;
+    else if(obj == null || !(obj instanceof Arch))
+      return false;
+    else {
+      @SuppressWarnings("unchecked")
+      Arch<T,E> arch = (Arch<T,E>)obj;
+      return (this.start.equals(arch.start) || this.start==arch.start) &&
+             (this.end.equals(arch.end) || this.end==arch.end)  &&
+             (this.weight.equals(arch.weight) || this.weight==arch.weight);             
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
+
 }

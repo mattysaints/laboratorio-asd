@@ -3,6 +3,8 @@ package graph;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GraphTests {
 
@@ -23,6 +25,7 @@ public class GraphTests {
   @Test
   public void test_add() throws Exception {
     assertTrue(grNotOr.add(3));
+    assertTrue(grNotOr.containsNode(3));
   }
 
   @Test
@@ -34,28 +37,26 @@ public class GraphTests {
   @Test 
   public void test_isOriented() {
   	assertFalse(grNotOr.isOriented());
+    assertTrue(grIsOr.isOriented());
   }
 
-  /*@Test 
-  public void test_isOriented_1() {
-  	assertTrue(grIsOr.isOriented());
-  }*/
-
   @Test
-  public void test_link() throws Exception {
+  public void test_link_notOr() throws Exception {
   	grNotOr.add(3);
   	grNotOr.add(5);
   	grNotOr.link(3,5,10);
   	assertTrue(grNotOr.containsLink(3,5));
+    assertTrue(grNotOr.containsLink(5,3));
   }
 
-  /*@Test
-  public void test_link_1() throws Exception {
+  @Test
+  public void test_link_isOr() throws Exception {
   	grIsOr.add(3);
   	grIsOr.add(5);
   	grIsOr.link(3,5,10);
+    assertTrue(grIsOr.containsLink(3,5));
   	assertFalse(grIsOr.containsLink(5,3));
-  }*/
+  }
 
   @Test
   public void test_containsNode() throws Exception {
@@ -71,39 +72,73 @@ public class GraphTests {
   }
 
   @Test
-  public void test_del1() throws Exception {
+  public void test_del_linked_isOr() throws Exception {
+    grIsOr.add(5);
+    grIsOr.add(7);
+    grIsOr.link(5,7,10);
+    grIsOr.del(5);
+    assertFalse(grIsOr.containsNode(5));
+    assertFalse(grIsOr.containsLink(5,7));
+  }
+
+  @Test
+  public void test_del_linked_notOr() throws Exception {
   	grNotOr.add(5);
   	grNotOr.add(7);
   	grNotOr.link(5,7,10);
   	grNotOr.del(5);
   	assertFalse(grNotOr.containsNode(5));
-  	assertTrue(grNotOr.containsNode(7));
+  	assertFalse(grNotOr.containsLink(5,7));
+    assertFalse(grNotOr.containsLink(7,5));
   }
 
   @Test
-  public void test_unlink() throws Exception {
+  public void test_unlink_isOr() throws Exception {
+    grIsOr.add(1);
+    grIsOr.add(2);
+    grIsOr.link(1,2,6);
+    grIsOr.unlink(1,2);
+    assertFalse(grIsOr.containsLink(1,2));
+  }
+
+
+  @Test
+  public void test_unlink_notOr() throws Exception {
   	grNotOr.add(1);
   	grNotOr.add(2);
   	grNotOr.link(1,2,6);
   	grNotOr.unlink(1,2);
   	assertFalse(grNotOr.containsLink(1,2));
+    assertFalse(grNotOr.containsLink(2,1));
   }
 
   @Test
   public void test_size() throws Exception {
   	grNotOr.add(1);
   	grNotOr.add(2);
-  	assertTrue(2 == grNotOr.size());
+  	assertEquals(2,grNotOr.size());
   }
 
   @Test
-  public void test_numLinks() throws Exception {
+  public void test_numLinks_isOr() throws Exception {
+    grIsOr.add(1);
+    grIsOr.add(2);
+    grIsOr.add(4);
+    grIsOr.link(1,2,6);
+    grIsOr.link(2,1,6);
+    grIsOr.link(2,4,5);
+    assertEquals(3,grIsOr.numLinks());
+  }
+
+  @Test
+  public void test_numLinks_notOr() throws Exception {
   	grNotOr.add(1);
   	grNotOr.add(2);
   	grNotOr.add(4);
   	grNotOr.link(1,2,6);
+    grNotOr.link(2,1,6);
   	grNotOr.link(2,4,5);
-  	assertTrue(2 == grNotOr.numLinks());
+  	assertEquals(2,grNotOr.numLinks());
   }
 
   @Test
@@ -111,10 +146,42 @@ public class GraphTests {
   	grNotOr.add(4);
   	grNotOr.add(5);
   	grNotOr.link(4,5,7);
-  	assertTrue(7 == grNotOr.weight(4,5));
+  	assertEquals((Integer)7,grNotOr.weight(4,5));
   }
 
+  @Test
+  public void test_archList_isOr() throws Exception {
+    grIsOr.add(1);
+    grIsOr.add(2);
+    grIsOr.add(4);
+    grIsOr.link(1,2,6);
+    grIsOr.link(2,1,6);
+    grIsOr.link(2,4,5);
 
+    List<Arch<Integer,Integer>> list = new ArrayList<>(3);
+    list.add(new Arch<>(1,2,6));
+    list.add(new Arch<>(2,1,6));
+    list.add(new Arch<>(2,4,5));
+    for(int i=0; i<list.size(); i++)
+      assertEquals(list.get(i),grIsOr.archList().get(i));
+  }
+
+  @Test
+  public void test_archList_notOr() throws Exception {
+    grNotOr.add(1);
+    grNotOr.add(2);
+    grNotOr.add(4);
+    grNotOr.link(1,2,6);
+    grNotOr.link(2,1,6);
+    grNotOr.link(2,4,5);
+
+    List<Arch<Integer,Integer>> list = new ArrayList<>(4);
+    list.add(new Arch<>(1,2,6));
+    list.add(new Arch<>(2,1,6));
+    list.add(new Arch<>(2,4,5));
+    list.add(new Arch<>(4,2,5)); 
+    assertEquals(list,grNotOr.archList());
+  }
 
 }
 

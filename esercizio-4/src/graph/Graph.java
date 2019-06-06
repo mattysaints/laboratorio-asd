@@ -12,7 +12,7 @@ public class Graph<T,E extends Number> {
 	private boolean isOriented;
 
 
-	public Graph(boolean iOriented) {
+	public Graph(boolean isOriented) {
 		this.nodes  = new HashMap<>();
 		this.isOriented = isOriented;
 	}
