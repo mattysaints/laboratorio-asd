@@ -155,33 +155,49 @@ public class GraphTests {
     grIsOr.add(2);
     grIsOr.add(4);
     grIsOr.link(1,2,6);
-    grIsOr.link(2,1,6);
-    grIsOr.link(2,4,5);
 
     List<Arch<Integer,Integer>> list = new ArrayList<>(3);
     list.add(new Arch<>(1,2,6));
-    list.add(new Arch<>(2,1,6));
-    list.add(new Arch<>(2,4,5));
-    for(int i=0; i<list.size(); i++)
-      assertEquals(list.get(i),grIsOr.archList().get(i));
+    assertEquals(list,grIsOr.archList());
   }
 
   @Test
   public void test_archList_notOr() throws Exception {
     grNotOr.add(1);
     grNotOr.add(2);
-    grNotOr.add(4);
     grNotOr.link(1,2,6);
-    grNotOr.link(2,1,6);
-    grNotOr.link(2,4,5);
 
     List<Arch<Integer,Integer>> list = new ArrayList<>(4);
     list.add(new Arch<>(1,2,6));
     list.add(new Arch<>(2,1,6));
-    list.add(new Arch<>(2,4,5));
-    list.add(new Arch<>(4,2,5)); 
     assertEquals(list,grNotOr.archList());
   }
+
+  /*@Test
+  public void test_nodeList() throws Exception {
+  	grNotOr.add(1);
+  	grNotOr.add(2);
+
+  	List<Node<Integer,Integer>> list = new ArrayList<>(2);
+  	list.add(new Node<>(1));
+  	list.add(new Node<>(2));
+  	assertEquals(list,grNotOr.nodeList());
+  }
+
+  @Test
+  public void test_adjList() throws Exception {
+  	grNotOr.add(1);
+  	grNotOr.add(2);
+  	grNotOr.add(3);
+
+  	grNotOr.link(1,2,6);
+  	grNotOr.link(1,3,4);
+
+  	List<Node<Integer,Integer>> list = new ArrayList<>(2);
+  	list.add(new Node<>(2));
+  	list.add(new Node<>(3));
+  	assertEquals(list,grNotOr.adjList(1));
+  }*/
 
 }
 
