@@ -173,14 +173,14 @@ public class GraphTests {
     assertEquals(list,grNotOr.archList());
   }
 
-  /*@Test
+  @Test
   public void test_nodeList() throws Exception {
   	grNotOr.add(1);
   	grNotOr.add(2);
 
-  	List<Node<Integer,Integer>> list = new ArrayList<>(2);
-  	list.add(new Node<>(1));
-  	list.add(new Node<>(2));
+  	List<Integer> list = new ArrayList<>(2);
+  	list.add(1);
+  	list.add(2);
   	assertEquals(list,grNotOr.nodeList());
   }
 
@@ -193,11 +193,11 @@ public class GraphTests {
   	grNotOr.link(1,2,6);
   	grNotOr.link(1,3,4);
 
-  	List<Node<Integer,Integer>> list = new ArrayList<>(2);
-  	list.add(new Node<>(2));
-  	list.add(new Node<>(3));
+  	List<Integer> list = new ArrayList<>(2);
+  	list.add(2);
+  	list.add(3);
   	assertEquals(list,grNotOr.adjList(1));
-  }*/
+  }
 
 }
 
