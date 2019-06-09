@@ -16,6 +16,10 @@ public class Arch<T,E extends Number> {
     this.weight = weight;
 	}
 
+  Arch<T,E> reverse() {
+    return new Arch<>(this.end,this.start,this.weight);
+  }
+
   public T start() {
     return this.start;
   }

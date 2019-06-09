@@ -59,14 +59,19 @@ public class GraphUsage {
     return res/2.0;
   } 
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
+    if(args.length < 1)
+      throw new Exception("Usage: GraphUsage <file_name>");
+
+    Graph<String,Double> graph, mst;
+    long beginTime = System.nanoTime();
     try {
-      Graph<String,Double> gr = loadGraph("graphusage/resources/italian_dist_graph.csv");
-      Graph<String,Double> mst = mstKruskal(gr);
-      System.out.println("MST Kruskal data\n"+
+      graph = loadGraph(args[0]);
+      mst = mstKruskal(graph);
+      System.out.println("MST Kruskal data ("+((System.nanoTime()-beginTime)/1000000.0)+" ms)\n"+
                        mst.size()+ " nodes\n"+
                        mst.numLinks()+" arches\n"+
-                       (totDistance(mst)/1000.0)+" total weight (km)");
+                       (totDistance(mst)/1000.0)+" (km) total weight");
     } catch(Exception e) {
       e.printStackTrace();
     }

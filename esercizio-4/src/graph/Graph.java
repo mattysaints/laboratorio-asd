@@ -108,7 +108,9 @@ public class Graph<T,E extends Number> {
   public List<Arch<T,E>> archList() {
     HashSet<Arch<T,E>> set = new HashSet<>(this.numLinks());
     for(Node<T,E> n: nodes.values())
-      set.addAll(n.archList());
+      for(Arch<T,E> a: n.archList())
+        if(isOriented || !isOriented && !set.contains(a.reverse()))
+          set.add(a);
     return new ArrayList<>(set);
   }
 
