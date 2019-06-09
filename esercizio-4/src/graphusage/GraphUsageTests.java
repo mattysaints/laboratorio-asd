@@ -30,7 +30,7 @@ public class GraphUsageTests {
 
   @Test
   public void test_totDistance() {
-  	assertEquals(6.0,GraphUsage.totDistance(grNotOr));
+  	assertEquals(6.0,GraphUsage.totDistance(grNotOr),0);
   }
 
 

@@ -9,12 +9,12 @@ import java.util.List;
 public class GraphTests {
 
   private Graph<Integer,Integer> grNotOr;
-  private Graph<Integer,Integer> grIsOr;
+  private Graph<Integer,Integer> grOr;
 
   @Before
   public void createGraph() {
     grNotOr = new Graph<>(false);
-    grIsOr = new Graph<>(true);
+    grOr = new Graph<>(true);
   }
 
   @Test(expected=GraphException.class)
@@ -37,7 +37,7 @@ public class GraphTests {
   @Test 
   public void test_isOriented() {
   	assertFalse(grNotOr.isOriented());
-    assertTrue(grIsOr.isOriented());
+    assertTrue(grOr.isOriented());
   }
 
   @Test
@@ -50,12 +50,12 @@ public class GraphTests {
   }
 
   @Test
-  public void test_link_isOr() throws Exception {
-  	grIsOr.add(3);
-  	grIsOr.add(5);
-  	grIsOr.link(3,5,10);
-    assertTrue(grIsOr.containsLink(3,5));
-  	assertFalse(grIsOr.containsLink(5,3));
+  public void test_link_or() throws Exception {
+  	grOr.add(3);
+  	grOr.add(5);
+  	grOr.link(3,5,10);
+    assertTrue(grOr.containsLink(3,5));
+  	assertFalse(grOr.containsLink(5,3));
   }
 
   @Test
@@ -72,13 +72,13 @@ public class GraphTests {
   }
 
   @Test
-  public void test_del_linked_isOr() throws Exception {
-    grIsOr.add(5);
-    grIsOr.add(7);
-    grIsOr.link(5,7,10);
-    grIsOr.del(5);
-    assertFalse(grIsOr.containsNode(5));
-    assertFalse(grIsOr.containsLink(5,7));
+  public void test_del_linked_or() throws Exception {
+    grOr.add(5);
+    grOr.add(7);
+    grOr.link(5,7,10);
+    grOr.del(5);
+    assertFalse(grOr.containsNode(5));
+    assertFalse(grOr.containsLink(5,7));
   }
 
   @Test
@@ -93,12 +93,12 @@ public class GraphTests {
   }
 
   @Test
-  public void test_unlink_isOr() throws Exception {
-    grIsOr.add(1);
-    grIsOr.add(2);
-    grIsOr.link(1,2,6);
-    grIsOr.unlink(1,2);
-    assertFalse(grIsOr.containsLink(1,2));
+  public void test_unlink_or() throws Exception {
+    grOr.add(1);
+    grOr.add(2);
+    grOr.link(1,2,6);
+    grOr.unlink(1,2);
+    assertFalse(grOr.containsLink(1,2));
   }
 
 
@@ -120,14 +120,14 @@ public class GraphTests {
   }
 
   @Test
-  public void test_numLinks_isOr() throws Exception {
-    grIsOr.add(1);
-    grIsOr.add(2);
-    grIsOr.add(4);
-    grIsOr.link(1,2,6);
-    grIsOr.link(2,1,6);
-    grIsOr.link(2,4,5);
-    assertEquals(3,grIsOr.numLinks());
+  public void test_numLinks_or() throws Exception {
+    grOr.add(1);
+    grOr.add(2);
+    grOr.add(4);
+    grOr.link(1,2,6);
+    grOr.link(2,1,6);
+    grOr.link(2,4,5);
+    assertEquals(3,grOr.numLinks());
   }
 
   @Test
@@ -150,27 +150,31 @@ public class GraphTests {
   }
 
   @Test
-  public void test_archList_isOr() throws Exception {
-    grIsOr.add(1);
-    grIsOr.add(2);
-    grIsOr.add(4);
-    grIsOr.link(1,2,6);
+  public void test_archList_or() throws Exception {
+    grOr.add(1);
+    grOr.add(2);
+    grOr.add(4);
+    grOr.link(1,2,6);
+    grOr.link(4,2,2);
 
-    List<Arch<Integer,Integer>> list = new ArrayList<>(3);
-    list.add(new Arch<>(1,2,6));
-    assertEquals(list,grIsOr.archList());
+    List<Arch<Integer,Integer>> actual = grOr.archList();
+    assertTrue(actual.contains(new Arch<>(1,2,6)));
+    assertTrue(actual.contains(new Arch<>(4,2,2)));
   }
 
   @Test
   public void test_archList_notOr() throws Exception {
     grNotOr.add(1);
     grNotOr.add(2);
+    grNotOr.add(3);
     grNotOr.link(1,2,6);
+    grNotOr.link(2,3,5);
 
-    List<Arch<Integer,Integer>> list = new ArrayList<>(4);
-    list.add(new Arch<>(1,2,6));
-    list.add(new Arch<>(2,1,6));
-    assertEquals(list,grNotOr.archList());
+    List<Arch<Integer,Integer>> actual = grNotOr.archList();
+    assertTrue(actual.contains(new Arch<>(1,2,6)));
+    assertTrue(actual.contains(new Arch<>(2,1,6)));
+    assertTrue(actual.contains(new Arch<>(2,3,5)));
+    assertTrue(actual.contains(new Arch<>(3,2,5)));
   }
 
   @Test
