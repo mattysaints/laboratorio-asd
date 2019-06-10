@@ -8,9 +8,14 @@ import unionfindset.UnionFindSetException;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class GraphUsage {
 
+  /**
+   * Returns the minimum spanning tree of the graph
+   * @param graph: the mst is calculated from the graph parameter
+   */
   public static Graph<String,Double> mstKruskal(Graph<String,Double> graph) throws Exception {
     if(graph==null)
       throw new IllegalArgumentException("mstKruskal: parameters cannot be null");
@@ -36,7 +41,11 @@ public class GraphUsage {
     }
   } // mstKruskal
 
-  public static Graph<String,Double> loadGraph(String filepath) throws Exception {
+  /**
+   * Returns the not oriented-weighted-graph loaded from a file
+   * @param filepath: path of the file to open
+   */
+  public static Graph<String,Double> loadGraph(String filepath) throws IOException, GraphException {
     Graph<String,Double> gr = new Graph<>(false);
     BufferedReader br = new BufferedReader(new FileReader(filepath));
     String line;
@@ -49,32 +58,35 @@ public class GraphUsage {
     }
     br.close();
     return gr;
-  }
+  } // loadGraph
 
+  /**
+   * Returns the total weight of the arches in the graph
+   * @param gr: the weight is calculated from the not oriented graph parameter
+   */
   public static double totDistance(Graph<String,Double> gr) {
     List<Arch<String,Double>> archList = gr.archList();
     int res = 0;
     for(Arch<String,Double> ar: archList)
       res += ar.weight();
-    return res/2.0;
-  } 
-
-  public static void main(String[] args) throws Exception {
-    if(args.length < 1)
-      throw new Exception("Usage: GraphUsage <file_name>");
-
-    Graph<String,Double> graph, mst;
-    long beginTime = System.nanoTime();
-    try {
-      graph = loadGraph(args[0]);
-      mst = mstKruskal(graph);
-      System.out.println("MST Kruskal data ("+((System.nanoTime()-beginTime)/1000000.0)+" ms)\n"+
-                       mst.size()+ " nodes\n"+
-                       mst.numLinks()+" arches\n"+
-                       (totDistance(mst)/1000.0)+" (km) total weight");
-    } catch(Exception e) {
-      e.printStackTrace();
-    }
+    return res;
   }
 
-}
+  /**
+   * @param args: command line arguments: should only contain one argument corresponding to the filepath
+   */
+  public static void main(String[] args) throws GraphException, IOException, Exception {
+    if(args.length < 1)
+      throw new Exception("Usage: GraphUsage <file_name>");
+    long beginTime = System.nanoTime();
+    Graph<String,Double> gr, mst;
+    
+    gr = loadGraph(args[0]);
+    mst = mstKruskal(gr);
+    System.out.println("MST Kruskal data ("+((System.nanoTime()-beginTime)/1000000.0)+" ms)\n"+
+                     mst.size()+ " nodes\n"+
+                     mst.numLinks()+" arches\n"+
+                     (totDistance(mst)/1000.0)+" (km) total weight");
+  } // main
+
+} // class
