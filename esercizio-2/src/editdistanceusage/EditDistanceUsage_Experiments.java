@@ -8,7 +8,7 @@ import java.lang.Math;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-public class EditDistanceUsage {
+public class EditDistanceUsage_Experiments {
 
   private static ArrayList<String> getWordList(String filepath) throws IOException {
     if(filepath == null)
