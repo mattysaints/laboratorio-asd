@@ -26,7 +26,7 @@ public class GraphUsage {
       UnionFindSet<String> part = new UnionFindSet<>();
       part.makeSet(graph.nodeList().toArray(new String[0]));
       List<Arch<String,Double>> archList = graph.archList();
-      archList.sort(new ArchComparator<>());
+      archList.sort(new ArchComparator_StrDbl());
 
       for(Arch<String,Double> ar: archList) {
         String u = ar.start(), w = ar.end();
