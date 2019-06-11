@@ -2,6 +2,21 @@
 #ifndef _LIST_H_
 #define _LIST_H_
 
+/*
+   LIST IMPLEMENTATION:
+
+   This library contains two different implementations of the data structure list of generic type:
+    - list implemented with a dinamic array
+    - list implemented with linked records
+
+    Leaving the following #define untouched means that the implementation with dinamic arrays will be used
+    Otherwise, by commenting the #define, the library will consider the implementation with linked records 
+ */
+#define DYNAMIC_ARRAY
+
+/*
+   Definition of types and functions
+ */
 
 // Definition of the opaque types
 typedef struct _List List;
