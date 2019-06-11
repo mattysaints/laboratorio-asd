@@ -48,7 +48,6 @@ public class EditDistanceUsage {
   public static void main(String[] args) throws Exception, IOException, IllegalArgumentException{
     if(args.length < 2)
       throw new Exception("Usage: EditDistanceUsage <file_path> <dictionary_path>");
-
     long begin = System.nanoTime();
     String[] file = loadWords(args[0]);
     String[] dict = loadWords(args[1]);
@@ -67,7 +66,7 @@ public class EditDistanceUsage {
           simWords.add(dict[j]);
         } else if(ed==min_ed)
           simWords.add(dict[j]);
-        if(ed==0 || dict[j].length()>file[i].length()+min_ed && min_ed<ed)
+        if(ed==0)
           break;
       }
       System.out.println(file[i]+": "+simWords);
