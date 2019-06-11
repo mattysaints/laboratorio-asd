@@ -39,7 +39,7 @@ static int *new_int(int num) {
 }
 
 static List *build_list_int() {
-  List *l = List_create(4);
+  List *l = List_create();
 
   List_add(l,new_int(2));
   List_add(l,new_int(3));
@@ -48,7 +48,7 @@ static List *build_list_int() {
 }
 
 static List *build_list_int_same() {
-  List *l = List_create(4);
+  List *l = List_create();
 
   List_add(l,new_int(2));
   List_add(l,new_int(2));
@@ -60,7 +60,7 @@ static List *build_list_int_same() {
 }
 
 static List *build_list_int_v2() {
-  List *l = List_create(4);
+  List *l = List_create();
 
   List_add(l,new_int(1));
   List_add(l,new_int(6));
@@ -69,7 +69,7 @@ static List *build_list_int_v2() {
 }
 
 static List *build_list_int_expected() {
-  List *l = List_create(4);
+  List *l = List_create();
 
   List_add(l,new_int(1));
   List_add(l,new_int(2));
@@ -81,7 +81,7 @@ static List *build_list_int_expected() {
 }
 
 static List *build_list_string() {
-  List *l = List_create(4);
+  List *l = List_create();
 
   List_add(l,"Apple");
   List_add(l,"Cat");
@@ -90,7 +90,7 @@ static List *build_list_string() {
 }
 
 static List *build_list_string_v2() {
-  List *l = List_create(4);
+  List *l = List_create();
 
   List_add(l,"Boat");
   List_add(l,"Mother");
@@ -99,7 +99,7 @@ static List *build_list_string_v2() {
 }
 
 static List *build_list_string_expected() {
-  List *l = List_create(4);
+  List *l = List_create();
 
   List_add(l,"Apple");
   List_add(l,"Boat");
@@ -151,10 +151,22 @@ static void test_merge_null() {
 
 static void test_merge_one_empty() {
   List *l1 = build_list_int();
-  List *l2 = List_create(3);
+  List *l2 = List_create();
   List *merged = merge(compare_int,l1,l2);
   
   test_list_equals_int(l1,merged); 
+
+  List_destroy(l1);
+  List_destroy(l2);
+  List_destroy(merged);
+}
+
+static void test_merge_two_empty() {
+  List *l1 = List_create();
+  List *l2 = List_create();
+  List *merged = merge(compare_int,l1,l2);
+
+  TEST_ASSERT_EQUAL_INT(1,List_empty(merged));
 
   List_destroy(l1);
   List_destroy(l2);
@@ -200,6 +212,7 @@ int main() {
   UNITY_BEGIN();
   RUN_TEST(test_merge_null);
   RUN_TEST(test_merge_one_empty);
+  RUN_TEST(test_merge_two_empty);
   RUN_TEST(test_merge_same_elements);
   RUN_TEST(test_merge_int);
   RUN_TEST(test_merge_string);
