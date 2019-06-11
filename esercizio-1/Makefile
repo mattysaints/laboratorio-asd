@@ -8,7 +8,7 @@ run:
 test: bin/list_tests
 	bin/list_tests
 
-usage: bin/list_main
+usage: bin/main_tests
 	bin/list_main
 
 # Flags per il compilatore
@@ -27,8 +27,8 @@ build/%.o: src/%.c $(COMMON_DEPS)
 bin/list_tests: build/list_tests.o build/list.o build/unity.o $(COMMON_DEPS)
 	$(CC) -o bin/list_tests build/list_tests.o build/list.o build/unity.o
 
-bin/list_main: build/list_main.o build/list.o build/unity.o $(COMMON_DEPS)
-	$(CC) -o bin/list_main build/list_main.o build/list.o build/unity.o
+bin/main_tests: build/main_tests.o build/main.o build/list.o build/unity.o $(COMMON_DEPS)
+	$(CC) -o bin/list_main build/main_tests.o build/main.o build/list.o build/unity.o
 
 # elimina i file eseguibili e oggetto
 clean:
