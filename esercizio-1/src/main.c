@@ -9,7 +9,7 @@
 
 List *merge(int(*compare)(void *, void *), List *l1, List *l2) {
 	if(compare && l1 && l2) {
-    List *result = List_create(List_size(l1)+List_size(l2));
+    List *result = List_create();
     Iterator *it1 = Iterator_create(l1);
     Iterator *it2 = Iterator_create(l2);
 
