@@ -62,9 +62,11 @@ public class GraphUsage {
 
   /**
    * Returns the total weight of the arches in the graph
-   * @param gr: the weight is calculated from the not oriented graph parameter
+   * @param gr: the weight is calculated from the graph parameter
    */
-  public static double totDistance(Graph<String,Double> gr) {
+  public static double totDistance(Graph<String,Double> gr) throws IllegalArgumentException {
+    if(gr==null)
+      throw new IllegalArgumentException("totDistance: argument cannot be null");
     List<Arch<String,Double>> archList = gr.archList();
     int res = 0;
     for(Arch<String,Double> ar: archList)
